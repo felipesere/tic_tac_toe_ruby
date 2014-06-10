@@ -5,8 +5,8 @@ require File.expand_path('../lib/tic_tac_toe_ruby/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name          = "tic_tac_toe_ruby"
   gem.version       = TicTacToeRuby::VERSION
-  gem.summary       = %q{TODO: Summary}
-  gem.description   = %q{TODO: Description}
+  gem.summary       = %q{Tic Tac Toe in ruby}
+  gem.description   = %q{Unbeatable AI for Tic Tac Toe in ruby}
   gem.license       = "MIT"
   gem.authors       = ["Felipe Sere"]
   gem.email         = "felipesere@gmail.com"
@@ -20,6 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'bundler', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 0.8'
   gem.add_development_dependency 'rdoc', '~> 3.0'
-  gem.add_development_dependency 'rspec', '~> 2.4'
+  gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
 end
