@@ -1,3 +1,5 @@
+require 'tic_tac_toe/move'
+
 module TicTacToe
   class Board
 
@@ -23,7 +25,17 @@ module TicTacToe
     end
 
     def possible_moves
-      @places.flatten.select { |item| item == :none }
+      possible_moves = []
+
+      @places.each_index do |row|
+        @places[row].each_index do |column|
+          if @places[row][column] == :none
+            possible_moves << Move.new(row, column)
+          end
+        end
+      end
+
+      possible_moves
     end
 
     def mark(player, row: , column:)    

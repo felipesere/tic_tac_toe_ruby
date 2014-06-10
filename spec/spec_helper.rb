@@ -6,4 +6,5 @@ SimpleCov.start do
 end
 
 require 'tic_tac_toe/board'
+require 'tic_tac_toe/move'
 include TicTacToe
