@@ -1,0 +1,28 @@
+= tic_tac_toe_ruby
+
+* {Homepage}[https://github.com/felipesere/tic_tac_toe_ruby#readme]
+* {Issues}[https://github.com/felipesere/tic_tac_toe_ruby/issues]
+* {Documentation}[http://rubydoc.info/gems/tic_tac_toe_ruby/frames]
+* {Email}[mailto:felipesere at gmail.com]
+
+== Description
+
+TODO: Description
+
+== Features
+
+== Examples
+
+  require 'tic_tac_toe_ruby'
+
+== Requirements
+
+== Install
+
+  $ gem install tic_tac_toe_ruby
+
+== Copyright
+
+Copyright (c) 2014 Felipe Sere
+
+See LICENSE.txt for details.
