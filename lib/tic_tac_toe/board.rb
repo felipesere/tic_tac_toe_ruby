@@ -18,10 +18,6 @@ module TicTacToe
       @places = marked_places
     end
 
-    def empty?
-      @places.flatten.count(:none) == 9
-    end
-
     def marked?(row, column)
       @places[row][column] != :none
     end

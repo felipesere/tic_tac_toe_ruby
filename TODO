@@ -1,10 +1,9 @@
 TODO:
 
 * Create an object 'move' or 'place' out of the combination (:row, :column)
-* Remove unnecessary empty? is_marked? methods once they are no longer needed
+* Remove unnecessary is_marked? methods once they are no longer needed
 * many references to the baords size
   - init of the hash
-  - empty with magic 9
 * proper hiding of methods with private
 * better matcher for size of possible_moves
 * possible_moves should return an array of actual moves...
