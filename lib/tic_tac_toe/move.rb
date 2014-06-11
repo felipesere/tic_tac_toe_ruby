@@ -1,7 +1,11 @@
 module TicTacToe
   class Move
-    def initialize(row, column)
+    attr_reader :row
+    attr_reader :column
 
+    def initialize(row:, column:)
+      @row = row
+      @column = column
     end
   end
 end
