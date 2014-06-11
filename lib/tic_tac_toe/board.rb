@@ -5,7 +5,7 @@ module TicTacToe
     @size = 3
 
     def self.create_empty
-      Board.new(create_empty_places)
+      Board.create([[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]])
     end
 
     def self.create(board)
@@ -30,23 +30,19 @@ module TicTacToe
     end
 
     def has_winner?
-      rows = has_winning_row?
-      columns = has_winning_column?
-      diagonal = has_winning_diagonal?
-      rows || columns || diagonal
+      (rows + columns + diagonals).any? { |line| winner(line) }
     end 
     
-    def has_winning_row?
-      @places.any? { |row| winner(row) }
+    def rows
+      @places
     end
     
-    def has_winning_column?
-      @places.transpose.any?{|column| winner(column) }
+    def columns
+      @places.transpose
     end
 
-    def has_winning_diagonal?
-      diagonals = [@places.flatten.values_at(0,4,8), @places.flatten.values_at(2,4,6)]
-      diagonals.any?{|diagonal| winner(diagonal) }
+    def diagonals
+      [@places.flatten.values_at(0,4,8), @places.flatten.values_at(2,4,6)]
     end
 
     def winner(row) 

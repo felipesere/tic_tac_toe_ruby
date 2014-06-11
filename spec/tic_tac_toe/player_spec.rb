@@ -16,10 +16,9 @@ describe Player do
       Board.create [[:x, :x, nil],[nil, nil, nil],[nil, nil, nil]]
     end
 
-    xit "should pic the eassiest direct win" do
+    it "should pic the eassiest direct win" do
       result = player.perform_move direct_win_board
-
-      expect(result.has_winner? :x).to be true
+      expect(result.has_winner? ).to be true
     end
   end
 end

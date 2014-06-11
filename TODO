@@ -1,8 +1,10 @@
 TODO:
 
-* look at THOR for the command line interface
+* create the concept of 'winning'
 
 * create a random player
+* have create_empty to call create with an empty array
+
 * create some kind of CLI output
 * create a game class holding the broad game-loop
 

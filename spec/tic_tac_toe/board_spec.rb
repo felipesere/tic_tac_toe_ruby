@@ -8,10 +8,6 @@ describe Board do
     it 'all moves are still possible (9)' do
       expect(board.possible_moves.size).to eq 9
     end
-
-    xit 'has no winner' do
-      expect(board.winner?).to be false
-    end
   end
 
   context '#perform_move' do
