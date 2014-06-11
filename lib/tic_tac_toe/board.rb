@@ -8,14 +8,49 @@ module TicTacToe
       Board.new(create_empty_places)
     end
 
+    def self.create(board)
+      board.each_index do |row|
+        board[row].each_index do |column|
+          if board[row][column] == nil 
+            board[row][column] = Move.new(row: row, column: column)
+          end
+        end
+      end
+      Board.new(board)
+    end
+
     def possible_moves
       @places.flatten.select { |item| item.instance_of? Move }
     end
 
     def perform_move(player, move)
       modified_places = duplicate_places
-      modified_places[move.row][move.column] = player
+      modified_places[move.row][move.column] = player.to_sym
       Board.new(modified_places)
+    end
+
+    def has_winner?
+      rows = has_winning_row?
+      columns = has_winning_column?
+      diagonal = has_winning_diagonal?
+      rows || columns || diagonal
+    end 
+    
+    def has_winning_row?
+      @places.any? { |row| winner(row) }
+    end
+    
+    def has_winning_column?
+      @places.transpose.any?{|column| winner(column) }
+    end
+
+    def has_winning_diagonal?
+      diagonals = [@places.flatten.values_at(0,4,8), @places.flatten.values_at(2,4,6)]
+      diagonals.any?{|diagonal| winner(diagonal) }
+    end
+
+    def winner(row) 
+      row.uniq.size == 1 && row[0].is_a?(Symbol)
     end
 
     private

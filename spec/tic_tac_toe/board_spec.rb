@@ -30,4 +30,36 @@ describe Board do
       end
     end
   end
+    
+  context "#create" do
+    it "allows creating specific boards" do
+      board = Board.create [[ :x, :x, :x  ],
+                            [ :x, :x, :x  ],
+                            [ :x, :x, nil ]]
+      expect(board.possible_moves.size).to eq 1
+    end
+  end
+
+  context "#has_winner" do
+    it "has winner for three horizontal" do 
+      board = Board.create [[ :x , :x , :x  ],
+                            [ nil, nil, nil ],
+                            [ nil, nil, nil ]]
+      expect(board.has_winner?).to eq true
+    end
+
+    it "has winner for three vertical" do 
+      board = Board.create [[ :x , nil , nil  ],
+                            [ :x, nil, nil ],
+                            [ :x, nil, nil ]]
+      expect(board.has_winner?).to eq true
+    end
+
+    it "has winner for three diagonal" do 
+      board = Board.create [[ :x , nil , nil  ],
+                            [ nil, :x, nil ],
+                            [ nil, nil, :x ]]
+      expect(board.has_winner?).to eq true
+    end
+  end
 end
