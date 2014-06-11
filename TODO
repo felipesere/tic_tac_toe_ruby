@@ -1,8 +1,9 @@
 TODO:
 
-* Remove unnecessary is_marked? methods once they are no longer needed
-* many references to the baords size
-  - init of the hash
-* proper hiding of methods with private
+* look at THOR for the command line interface
+
+* create a random player
+* create some kind of CLI output
+* create a game class holding the broad game-loop
+
 * better matcher for size of possible_moves
-* #mark should take an actual move as parameter
