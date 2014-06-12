@@ -1,9 +1,10 @@
 TODO:
 
-* create the concept of 'winning'
 
 * create a random player
 * have create_empty to call create with an empty array
+
+* remove any bogus to_s calls
 
 * create some kind of CLI output
 * create a game class holding the broad game-loop

@@ -24,9 +24,13 @@ module TicTacToe
     end
 
     def perform_move(player, move)
-      modified_places = duplicate_places
+      modified_places = @places.map { |row| row.dup }
       modified_places[move.row][move.column] = player.to_sym
       Board.new(modified_places)
+    end
+
+    def marked?(row, column)
+      @places[row][column].instance_of? Symbol
     end
 
     def has_winner?
@@ -45,33 +49,12 @@ module TicTacToe
       [@places.flatten.values_at(0,4,8), @places.flatten.values_at(2,4,6)]
     end
 
-    def winner(row) 
-      row.uniq.size == 1 && row[0].is_a?(Symbol)
-    end
-
-    private
-
-    def self.create_empty_places
-      places = []
-      (0...@size).each do |row|
-        places[row] = []
-        (0...@size).each do |column|
-          places[row] << Move.new(row: row, column: column)
-        end
-      end
-      places
+    def winner(line) 
+      line.uniq.size == 1 && line.first.is_a?(Symbol)
     end
 
     def initialize(places)
       @places = places
-    end
-
-    def duplicate_places
-      new_places = []
-      @places.each do |row|
-        new_places << row.dup
-      end
-      new_places
     end
   end
 end
