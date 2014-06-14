@@ -33,6 +33,10 @@ module TicTacToe
       @places[row][column].instance_of? Symbol
     end
 
+    def has_draw?
+      !has_winner? && possible_moves.empty?
+    end
+
     def has_winner?
       (rows + columns + diagonals).any? { |line| winner(line) }
     end 
@@ -51,6 +55,29 @@ module TicTacToe
 
     def winner(line) 
       line.uniq.size == 1 && line.first.is_a?(Symbol)
+    end
+
+    def to_s
+      @places.map do |element|
+        element.map do |i|
+          if i.instance_of? Move
+            :_
+          else
+            i
+          end
+        end.join("")
+      end.join(" ")
+    end
+
+    def generate_key
+      body = @places.flatten.map do |element|
+        if element.instance_of? Move
+          "#{element.row}:#{element.column}".to_sym
+        else
+          element
+        end
+      end.to_s
+      Digest::MD5.hexdigest(body)
     end
 
     def initialize(places)

@@ -1,5 +1,6 @@
 TODO:
 
+* clean up tests... they look... horrible...
 
 * create a random player
 * have create_empty to call create with an empty array

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Board do
 
   let(:board) { Board.create_empty }
-
+  let(:drawn_board) { board = Board.create [[:x, :x, :o], [:o, :o, :x], [:x, :o, :x]] }
   context '#create_empty' do
     it 'all moves are still possible (9)' do
       expect(board.possible_moves.size).to eq 9
@@ -23,6 +23,11 @@ describe Board do
 
       it 'reduces the number of possible moves' do
         expect(marked_board.possible_moves.size).to be(moves_before - 1)
+      end
+
+      it 'has no possible moves for full board' do
+
+        expect(drawn_board.possible_moves.empty?).to be true
       end
     end
   end
@@ -56,6 +61,10 @@ describe Board do
                             [ nil, :x, nil ],
                             [ nil, nil, :x ]]
       expect(board.has_winner?).to eq true
+    end
+
+    it "has no winner for a draw" do
+      expect(drawn_board.has_winner?).to eq false
     end
   end
 end
