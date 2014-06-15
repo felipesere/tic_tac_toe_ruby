@@ -1,67 +1,64 @@
 module TicTacToe
   class Player
-      
-     def initialize(name, oponent = nil)
-       @name = name
-       @cache = {}
-       @opponent = oponent
-     end
-
-     def create(name)
-        oponent = Player.new(name == :x ? :y : :x)
-        Player.new(name, oponent)
-     end
-
-
-     def perform_move(board)
-       move = select_move(board, @name)
-       board.perform_move(@name, move)
-     end
-
-     def select_move(board, player)
-       move ||= @cache[board.generate_key]
-       move ||= winning_move(board, player)
-       move ||= defending_move(board, player)
-       move ||= next_best_alternative(board, player)
-       @cache[board.generate_key]=move
-       move
+    def self.create(name)
+      me = Player.new(name)
+      opponent = Player.new(name == :x ? :o : :x)
+      me.set_opponent(opponent)
+      opponent.set_opponent(me)
+      me
     end
 
-    def winning_move(board, player)
+    def initialize(name)
+      @name = name
+      @cache = {}
+    end
+
+    def set_opponent(opponent)
+      @opponent = opponent
+    end
+
+    def perform_move(board)
+      move = select_move(board)
+      board.perform_move(@name, move)
+    end
+
+    def select_move(board)
+      move ||= @cache[board.generate_key]
+      move ||= winning_move(board)
+      move ||= defending_move(board)
+      move ||= next_best_alternative(board)
+      @cache[board.generate_key]=move
+      move
+    end
+
+    def winning_move(board)
       board.possible_moves.find do |move|
-        new_board = board.perform_move(player, move)
+        new_board = board.perform_move(@name, move)
         new_board.has_winner?
       end
     end
 
-    def defending_move(board, player)
-      winning_move(board, switch_player(player))
+    def defending_move(board)
+      @opponent.winning_move(board)
     end
 
-    def next_best_alternative(board, player)
+    def next_best_alternative(board)
       move_value = lambda { |pair| pair[0] }
-      
-      board.possible_moves.map do |move|
-        [value_of_move(board, move, player), move]
-      end.sort_by { move_value }.last[1]
+
+      board.possible_moves.map { |move| [value_of_move(board, move), move] }.sort_by { move_value }.last[1]
     end
 
-    def value_of_move(board, move, player)
-      new_board = board.perform_move(player, move)
+    def value_of_move(board, move)
+      new_board = board.perform_move(@name, move)
 
       if new_board.has_draw?
         0
       elsif new_board.has_winner?
-        player == @name ? 10 : -10
+        10
       else
-        opponent = switch_player(player) 
-        opponent_move = select_move(new_board, opponent)
-        value_of_move(new_board, opponent_move, opponent)
+        opponent_move = @opponent.select_move(new_board)
+        -@opponent.value_of_move(new_board, opponent_move)
       end
-    end
-
-    def switch_player(player)
-      player == :x ? :o : :x
     end
   end
 end
