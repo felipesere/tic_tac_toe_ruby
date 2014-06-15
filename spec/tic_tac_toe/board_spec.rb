@@ -34,9 +34,9 @@ describe Board do
     
   context "#create" do
     it "allows creating specific boards" do
-      board = Board.create [[ :x, :x, :x  ],
-                            [ :x, :x, :x  ],
-                            [ :x, :x, nil ]]
+      board = Board.create [[:x, :x, :x ],
+                            [:x, :x, :x ],
+                            [:x, :x, nil]]
       expect(board.possible_moves.size).to eq 1
     end
   end

@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-require File.expand_path('../lib/tic_tac_toe_ruby/version', __FILE__)
-
 Gem::Specification.new do |gem|
   gem.name          = "tic_tac_toe_ruby"
-  gem.version       = TicTacToeRuby::VERSION
+  gem.version       = "0.0.1"
   gem.summary       = %q{Tic Tac Toe in ruby}
   gem.description   = %q{Unbeatable AI for Tic Tac Toe in ruby}
   gem.license       = "MIT"

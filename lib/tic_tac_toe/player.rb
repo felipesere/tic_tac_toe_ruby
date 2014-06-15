@@ -10,7 +10,6 @@ module TicTacToe
 
     def initialize(name)
       @name = name
-      @cache = {}
     end
 
     def set_opponent(opponent)
@@ -23,18 +22,24 @@ module TicTacToe
     end
 
     def select_move(board)
-      move ||= @cache[board.generate_key]
-      move ||= winning_move(board)
-      move ||= defending_move(board)
-      move ||= next_best_alternative(board)
-      @cache[board.generate_key]=move
+      cache(board.generate_key) do 
+        move ||= winning_move(board)
+        move ||= defending_move(board)
+        move ||= next_best_alternative(board)
+      end
+    end
+
+    def cache(key, &block)
+      @cache ||= {}
+      move ||= @cache[key]
+      move ||= block.call()
+      @cache[key]=move
       move
     end
 
     def winning_move(board)
       board.possible_moves.find do |move|
-        new_board = board.perform_move(@name, move)
-        new_board.has_winner?
+        board.perform_move(@name, move).has_winner?
       end
     end
 
@@ -43,14 +48,13 @@ module TicTacToe
     end
 
     def next_best_alternative(board)
-      move_value = lambda { |pair| pair[0] }
-
-      board.possible_moves.map { |move| [value_of_move(board, move), move] }.sort_by { move_value }.last[1]
+      board.possible_moves.sort_by do |move|
+        value_of_move(board, move)
+      end.last
     end
 
     def value_of_move(board, move)
       new_board = board.perform_move(@name, move)
-
       if new_board.has_draw?
         0
       elsif new_board.has_winner?

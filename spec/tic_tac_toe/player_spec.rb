@@ -14,49 +14,49 @@ describe Player do
     end
 
     let(:direct_win_board) do
-      Board.create [[:x, :x, nil],[nil, nil, nil],[nil, nil, nil]]
+      Board.create [[:x, :x, nil], [nil, nil, nil], [nil, nil, nil]]
     end
 
     it 'should pic the eassiest direct win' do
-      result = player.perform_move direct_win_board
+      result = player.perform_move(direct_win_board)
       expect(result.has_winner? ).to be true
     end
 
     let(:direct_defense_board) do
-      Board.create [[nil, nil, nil],[:o, :o, nil],[nil, nil, nil]]
+      Board.create [[nil, nil, nil], [:o, :o, nil], [nil, nil, nil]]
     end
 
     it 'should block if necessary' do
-      result = player.perform_move (direct_defense_board)
-      expect(result.marked?(1,2)).to be true
+      result = player.perform_move(direct_defense_board)
+      expect(result.marked?(1, 2)).to be true
     end
 
     context 'set up fork where possible' do
 
-      it "marks the middle row on the left to fork" do
-        board = Board.create [[:x, :o, nil ],[nil, :x, nil],[nil, nil,:o]]
+      it 'marks the middle row on the left to fork' do
+        board = Board.create [[:x, :o, nil ], [nil, :x, nil], [nil, nil,:o]]
         result = player.perform_move(board)
         puts result.to_s
-        expect(result.marked?(2,0)).to be true
+        expect(result.marked?(1, 0)).to be true
       end
     end
   end
 
-  context "#value_of_move" do
-    it "scores 10 if it wins" do
-      board = Board.create [[:x,:x, nil],[nil, nil, nil],[nil, nil, nil]]
+  context '#value_of_move' do
+    it 'scores 10 if it wins' do
+      board = Board.create [[:x, :x,  nil], [nil, nil, nil], [nil, nil, nil]]
       move = Move.new(row: 0, column: 2)
       expect(player.value_of_move(board, move)).to eq 10
     end
 
-    it "scores -10 if x loses" do
+    it 'scores -10 if x loses' do
       board = Board.create [[:o, :o, nil], [nil, nil, nil], [nil, nil, nil]]
       move = Move.new(row: 0, column: 2)
       expect(player.value_of_move(board, move)).to eq -10
     end
 
-    it "scores 0 if there is a draw" do
-      board = Board.create [[:o, :o, :x],[:x, :x, :o], [:o, :x, nil]]
+    it 'scores 0 if there is a draw' do
+      board = Board.create [[:o, :o, :x], [:x, :x, :o], [:o, :x, nil]]
       move = Move.new(row: 2, column: 2)
       expect(player.value_of_move(board, move)).to eq 0
     end
