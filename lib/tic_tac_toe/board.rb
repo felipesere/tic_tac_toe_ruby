@@ -2,7 +2,10 @@ require 'tic_tac_toe/move'
 
 module TicTacToe
   class Board
-    @size = 3
+    def initialize(places)
+      @places = places
+      @size = 3
+    end
 
     def self.create_empty
       Board.create([[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]])
@@ -50,7 +53,10 @@ module TicTacToe
     end
 
     def diagonals
-      [@places.flatten.values_at(0,4,8), @places.flatten.values_at(2,4,6)]
+      [
+        (0...@size).collect{|i| @places[i][i]}, 
+        (0...@size).collect{|i| @places[i][(@size-1)-i] }
+      ]
     end
 
     def winner(line) 
@@ -70,18 +76,7 @@ module TicTacToe
     end
 
     def generate_key
-      body = @places.flatten.map do |element|
-        if element.instance_of? Move
-          "#{element.row}:#{element.column}".to_sym
-        else
-          element
-        end
-      end.to_s
-      Digest::MD5.hexdigest(body)
-    end
-
-    def initialize(places)
-      @places = places
+      Digest::MD5.hexdigest(self.to_s).to_sym
     end
   end
 end
