@@ -10,13 +10,7 @@ module TicTacToe
     end
 
     def self.create_empty
-      result = []
-      SIZE.times do
-        row = []
-        SIZE.times { row << nil }
-        result << row
-      end
-      Board.create(result)
+      Board.create(Array.new(SIZE) { Array.new(SIZE) })
     end
 
     def self.create(board)
