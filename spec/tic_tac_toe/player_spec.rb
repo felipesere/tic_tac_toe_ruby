@@ -31,11 +31,9 @@ describe Player do
     end
 
     context 'set up fork where possible' do
-
       it 'marks the middle row on the left to fork' do
         board = Board.create [[:x, :o, nil ], [nil, :x, nil], [nil, nil,:o]]
         result = player.perform_move(board)
-        puts result.to_s
         expect(result.marked?(1, 0)).to be true
       end
     end

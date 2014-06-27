@@ -3,14 +3,14 @@ module TicTacToe
     def render(board)
       result = ""
       index = 1
-      board.rows.each_with_index do |row| 
-        row.each_with_index do |cell| 
+      board.rows.each do |row| 
+        row.each do |cell| 
           if cell.instance_of? Symbol
             result += "[#{cell}]"
           else
             result += "[#{index}]"
-            index += 1 
           end
+          index += 1 
         end
         result += "\n"
       end

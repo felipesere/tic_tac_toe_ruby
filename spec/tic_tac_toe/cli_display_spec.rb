@@ -16,7 +16,7 @@ describe CliDisplay do
       marked_board = board.perform_move(:x, board.possible_moves.first)
       result = display.render(marked_board)
       puts result
-      expect(result).to eq("[x][1][2]\n[3][4][5]\n[6][7][8]\n")
+      expect(result).to eq("[x][2][3]\n[4][5][6]\n[7][8][9]\n")
     end
   end
 end
