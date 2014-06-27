@@ -1,4 +1,3 @@
-require 'tic_tac_toe/move'
 require 'digest'
 
 module TicTacToe
@@ -92,6 +91,15 @@ module TicTacToe
 
     def generate_key
       Digest::MD5.hexdigest(self.to_s).to_sym
+    end
+  end
+
+  class Move
+    attr_reader :row, :column
+
+    def initialize(row:, column:)
+      @row = row
+      @column = column
     end
   end
 end

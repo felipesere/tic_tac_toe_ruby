@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Player do
+describe AiPlayer do
 
-  let(:player) { Player.create(:x) }
+  let(:player) { AiPlayer.create(:x) }
   let(:board) { Board.create_empty }
   let(:board_size) { board.possible_moves.size }
 
