@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Board do
-
   let(:board) { Board.create_empty }
   let(:drawn_board) { board = Board.create [[:x, :x, :o], [:o, :o, :x], [:x, :o, :x]] }
   context '#create_empty' do
@@ -26,7 +25,6 @@ describe Board do
       end
 
       it 'has no possible moves for full board' do
-
         expect(drawn_board.possible_moves.empty?).to be true
       end
     end
@@ -71,6 +69,8 @@ describe Board do
     end
     it "has no winner for a draw" do
       expect(drawn_board.has_winner?).to eq false
+      expect(drawn_board.has_draw?).to eq true
+      expect(drawn_board.is_finished?).to eq true
     end
   end
 end

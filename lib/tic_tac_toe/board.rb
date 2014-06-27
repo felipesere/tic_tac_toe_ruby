@@ -1,25 +1,38 @@
 require 'tic_tac_toe/move'
+require 'digest'
 
 module TicTacToe
   class Board
+
+    SIZE = 3
+
     def initialize(places)
       @places = places
-      @size = 3
     end
 
     def self.create_empty
-      Board.create([[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]])
+      result = []
+      SIZE.times do
+        row = []
+        SIZE.times { row << nil }
+        result << row
+      end
+      Board.create(result)
     end
 
     def self.create(board)
       board.each_index do |row|
         board[row].each_index do |column|
-          if board[row][column] == nil 
-            board[row][column] = Move.new(row: row, column: column)
-          end
+          add_move(board, row, column)
         end
       end
       Board.new(board)
+    end
+
+    def self.add_move(board, row, column)
+      if board[row][column] == nil 
+        board[row][column] = Move.new(row: row, column: column)
+      end
     end
 
     def possible_moves
@@ -36,6 +49,10 @@ module TicTacToe
       @places[row][column].instance_of? Symbol
     end
 
+    def is_finished?
+      possible_moves.size == 0
+    end
+
     def has_draw?
       !has_winner? && possible_moves.empty?
     end
@@ -43,19 +60,19 @@ module TicTacToe
     def has_winner?
       (rows + columns + diagonals).any? { |line| winner(line) }
     end 
-    
+
     def rows
       @places
     end
-    
+
     def columns
       @places.transpose
     end
 
     def diagonals
       [
-        (0...@size).collect{|i| @places[i][i]}, 
-        (0...@size).collect{|i| @places[i][(@size-1)-i] }
+        (0...SIZE).collect{|i| @places[i][i]}, 
+        (0...SIZE).collect{|i| @places[i][SIZE-i-1] }
       ]
     end
 
@@ -64,15 +81,13 @@ module TicTacToe
     end
 
     def to_s
-      @places.map do |element|
-        element.map do |i|
-          if i.instance_of? Move
-            :_
-          else
-            i
-          end
-        end.join("")
-      end.join(" ")
+      @places.flatten.map do |element|
+        if element.instance_of? Move 
+          "_" 
+        else 
+          element
+        end
+      end.join.to_s
     end
 
     def generate_key

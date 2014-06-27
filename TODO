@@ -1,13 +1,10 @@
 TODO:
 
+* remove places with tripple indentation
 * clean up tests... they look... horrible...
-
-* create a random player
-* have create_empty to call create with an empty array
 
 * remove any bogus to_s calls
 
 * create some kind of CLI output
 * create a game class holding the broad game-loop
 
-* better matcher for size of possible_moves

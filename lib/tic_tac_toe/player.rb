@@ -1,5 +1,8 @@
 module TicTacToe
   class Player
+
+    attr_reader :name
+
     def self.create(name)
       me = Player.new(name)
       opponent = Player.new(name == :x ? :o : :x)

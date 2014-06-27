@@ -7,5 +7,11 @@ module TicTacToe
       @row = row
       @column = column
     end
+   
+    
+
+    def to_s
+      " "
+    end
   end
 end
