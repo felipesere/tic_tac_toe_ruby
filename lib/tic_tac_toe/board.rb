@@ -73,6 +73,10 @@ module TicTacToe
       line.uniq.size == 1 && line.first.is_a?(Symbol)
     end
 
+    def elements
+      @places.flatten
+    end
+
     def to_s
       @places.flatten.map do |element|
         element.instance_of?(Move) ? "_" : element 
