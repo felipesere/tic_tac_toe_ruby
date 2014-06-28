@@ -43,11 +43,11 @@ module TicTacToe
     end
 
     def is_finished?
-      possible_moves.size == 0
+      possible_moves.empty?
     end
 
     def has_draw?
-      !has_winner? && possible_moves.empty?
+      !has_winner? && is_finished?
     end
 
     def has_winner?
@@ -75,11 +75,7 @@ module TicTacToe
 
     def to_s
       @places.flatten.map do |element|
-        if element.instance_of? Move 
-          "_" 
-        else 
-          element
-        end
+        element.instance_of?(Move) ? "_" : element 
       end.join.to_s
     end
 
