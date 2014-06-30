@@ -1,7 +1,11 @@
 require 'rspec'
 
 require 'simplecov'
-SimpleCov.start
+
+SimpleCov.start do
+  add_filter "spec"
+end
+
 
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/players/ai_player'

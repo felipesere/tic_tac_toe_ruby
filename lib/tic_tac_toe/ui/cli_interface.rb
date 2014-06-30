@@ -36,20 +36,8 @@ module TicTacToe
         result
       end
 
-      def get_move(board)
-        move_table = board.move_table
-        value = read_user_input.to_i
-
-        if move_table.include?(value)
-          move_table[value]
-        else
-          input_error(value)
-          get_move(board)
-        end
-      end
-
       def input_error(value)
-        @output.puts "#{value} was not a valid move. Try again."
+       @output.puts "#{value} was not a valid move. Try again."
       end
 
       def read_user_input
