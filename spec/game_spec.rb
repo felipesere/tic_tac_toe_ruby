@@ -16,8 +16,7 @@ describe Game do
     end
 
     def perform_move(board)
-      index = @moves.shift
-      board.perform_move(@name, board.move_table[index])
+      board.perform_move(@name, board.move_table[@moves.shift])
     end
   end
 end
