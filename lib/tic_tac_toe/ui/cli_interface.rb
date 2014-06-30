@@ -42,19 +42,23 @@ module TicTacToe
         while move.nil? do
           user_choice = read_user_input
           move = move_table[user_choice]
-          if move.nil? 
-            @output.puts "#{user_choice} was not a valid move. Try again."
+          if move.nil?
+            input_error(user_choice)
           end
         end
         move
+      end
+
+      def input_error(value)
+        @output.puts "#{value} was not a valid move. Try again."
       end
 
       def read_user_input
         begin
           value = @input.gets.chomp
           Integer(value)
-        rescue
-          @output.puts "'#{value}' could not be converted to a number. Try again"
+        rescue ArgumentError
+          input_error(value)
           retry
         end
       end
