@@ -32,6 +32,16 @@ module TicTacToe
       @places.flatten.select { |item| item.instance_of? Move }
     end
 
+    def move_table
+      Hash.new.tap do |hash|
+        elements.each.with_index(1) do |cell, index|
+          if cell.instance_of? Move
+            hash[index] = cell
+          end
+        end
+      end
+    end
+
     def perform_move(player, move)
       modified_places = @places.map { |row| row.dup }
       modified_places[move.row][move.column] = player.to_sym

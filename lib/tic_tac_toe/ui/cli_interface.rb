@@ -37,16 +37,15 @@ module TicTacToe
       end
 
       def get_move(board)
-        move_table = build_move_table(board)
-        move = nil
-        while move.nil? do
-          user_choice = read_user_input
-          move = move_table[user_choice]
-          if move.nil?
-            input_error(user_choice)
-          end
+        move_table = board.move_table
+        value = read_user_input.to_i
+
+        if move_table.include?(value)
+          move_table[value]
+        else
+          input_error(value)
+          get_move(board)
         end
-        move
       end
 
       def input_error(value)
@@ -54,23 +53,7 @@ module TicTacToe
       end
 
       def read_user_input
-        begin
-          value = @input.gets.chomp
-          Integer(value)
-        rescue ArgumentError
-          input_error(value)
-          retry
-        end
-      end
-
-      def build_move_table(board)
-        result = {}
-        board.elements.each.with_index(1) do |cell, index|
-          if cell.instance_of? Move
-            result[index] = cell
-          end
-        end
-        result
+        @input.gets.chomp
       end
     end
   end
