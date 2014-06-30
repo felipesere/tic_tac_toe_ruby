@@ -4,7 +4,7 @@ module TicTacToe
   class Game
     def initialize(first, second)
       @player = [first, second]
-      @interface = CliInterface.new
+      @interface = CliInterface.new($stind, $stdout, true, true)
     end
 
     def start

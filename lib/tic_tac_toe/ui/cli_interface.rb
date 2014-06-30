@@ -3,17 +3,24 @@ require 'colorize'
 module TicTacToe
   module UI
     class CliInterface
+      def initialize(input = $stdin, output = $stdout, colors=false, clear=false)
+        @input = input
+        @output = output
+        @colors = colors
+        @clear = clear
+      end
+
       def render(board)
-        print %x{clear}
+        @output.puts %x{clear} if @clear
         printed_board = board.elements.collect.each.with_index(1) do |cell, index|
-          result = convert_element(cell, index)
+          result = print_element(cell, index)
           result += "\n" if index % 3 == 0
           result
         end.join
-        puts printed_board
+        @output.puts printed_board
       end
 
-      def convert_element(cell, index)
+      def print_element(cell, index)
         if cell.instance_of? Symbol
           color_cell(cell)
         else
@@ -23,13 +30,33 @@ module TicTacToe
 
       def color_cell(cell)
         result = "[#{cell}]"
-        cell == :x ? result.red : result.blue
+        if @colors
+          result = cell.to_sym == :x ? result.red : result.blue
+        end
+        result
       end
 
       def get_move(board)
-        user_choice = Integer($stdin.gets.chomp)
         move_table = build_move_table(board)
-        move_table[user_choice]
+        move = nil
+        while move.nil? do
+          user_choice = read_user_input
+          move = move_table[user_choice]
+          if move.nil? 
+            @output.puts "#{user_choice} was not a valid move. Try again."
+          end
+        end
+        move
+      end
+
+      def read_user_input
+        begin
+          value = @input.gets.chomp
+          Integer(value)
+        rescue
+          @output.puts "'#{value}' could not be converted to a number. Try again"
+          retry
+        end
       end
 
       def build_move_table(board)

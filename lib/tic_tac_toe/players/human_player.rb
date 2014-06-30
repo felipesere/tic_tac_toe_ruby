@@ -8,7 +8,6 @@ module TicTacToe
       end
 
       def perform_move(board)
-        @interface.render(board)
         move = @interface.get_move(board)
         board.perform_move(:x, move)
       end
