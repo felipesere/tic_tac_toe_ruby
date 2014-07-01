@@ -21,12 +21,12 @@ describe CliInterface do
       display.render(marked_board)
       expect(fake_out.string).to eq("[x][2][3]\n[4][5][6]\n[7][8][9]\n")
     end
+  end
 
-    it "displays a proper error message" do
-      fake_out = StringIO.new
-      display = CliInterface.new(nil, fake_out)
-      display.input_error("foo")
-      expect(fake_out.string).to include('foo')
-    end
+  it "displays a proper error message" do
+    fake_out = StringIO.new
+    display = CliInterface.new(nil, fake_out)
+    display.input_error("foo")
+    expect(fake_out.string).to include('foo')
   end
 end

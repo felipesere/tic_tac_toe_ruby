@@ -43,6 +43,14 @@ module TicTacToe
       def read_user_input
         @input.gets.chomp
       end
+
+      def message_winner(player)
+        @output.puts "The winner is #{player}"
+      end
+
+      def message_draw
+        @output.puts "There was a draw"
+      end
     end
   end
 end

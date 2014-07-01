@@ -33,21 +33,4 @@ describe HumanPlayer do
       expect(new_board.marked?(2,0)).to be true
     end
   end
-
-  class FakeInterface
-
-    def chooses(*value)
-      @value = value
-    end
-
-    def read_user_input
-      if @value.empty?
-        raise "Read more than expected"
-      end
-      "#{@value.shift}" 
-    end
-
-    def input_error(value)
-    end
-  end
 end

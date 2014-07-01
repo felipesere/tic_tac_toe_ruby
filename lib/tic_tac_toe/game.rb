@@ -2,9 +2,9 @@ require 'spec_helper'
 
 module TicTacToe
   class Game
-    def initialize(first, second)
-      @player = [first, second]
-      @interface = CliInterface.new($stind, $stdout, true, true)
+    def initialize(interface, first_player, second_player)
+      @player = [first_player, second_player]
+      @interface = interface 
     end
 
     def start
@@ -19,6 +19,11 @@ module TicTacToe
 
       puts "Final board:"
       @interface.render(board)
+      if board.has_winner?
+        @interface.message_winner(@player.first.name)
+      else
+        @interface.message_draw
+      end
     end
   end
 end
