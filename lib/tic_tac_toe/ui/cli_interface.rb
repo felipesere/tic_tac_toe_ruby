@@ -11,13 +11,13 @@ module TicTacToe
       end
 
       def render(board)
-        @output.puts %x{clear} if @clear
+        message %x{clear} if @clear
         printed_board = board.elements.collect.each.with_index(1) do |cell, index|
           result = print_element(cell, index)
           result += "\n" if index % 3 == 0
           result
         end.join
-        @output.puts printed_board
+        message printed_board
       end
 
       def print_element(cell, index)
@@ -37,7 +37,7 @@ module TicTacToe
       end
 
       def input_error(value)
-       @output.puts "#{value} was not a valid move. Try again."
+        message "#{value} was not a valid move. Try again."
       end
 
       def read_user_input
@@ -45,11 +45,11 @@ module TicTacToe
       end
 
       def message_winner(player)
-        @output.puts "The winner is #{player}"
+        message "The winner is #{player}"
       end
 
       def message_draw
-        @output.puts "There was a draw"
+        message "There was a draw"
       end
 
       def message(message)

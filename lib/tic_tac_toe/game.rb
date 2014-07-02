@@ -19,13 +19,14 @@ module TicTacToe
         board = play_turn(board)
         @player.rotate!
       end
-      [board, @player.rotate!.first]
+      [board, @player.last]
     end
 
     def play_turn(board)
       @interface.render(board)
       @player.first.perform_move(board)
     end
+
     def greeting
       @interface.message("Hello! You are X. Enjoy!")
     end
