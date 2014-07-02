@@ -15,16 +15,17 @@ module TicTacToe
 
     def play
       board = Board.create_empty
-      turns = 0
       until board.has_winner? or board.has_draw? do
-        @interface.render(board)
-        board = @player[turns % 2].perform_move(board)
-        turns += 1
+        board = play_turn(board)
+        @player.rotate!
       end
-      turns += 1
-      [board, @player[turns % 2]]
+      [board, @player.rotate!.first]
     end
 
+    def play_turn(board)
+      @interface.render(board)
+      @player.first.perform_move(board)
+    end
     def greeting
       @interface.message("Hello! You are X. Enjoy!")
     end

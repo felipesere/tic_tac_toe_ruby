@@ -4,16 +4,15 @@ describe Game do
 
   let(:interface) { FakeInterface.new }
 
-  it "end when a player wins with three in a row" do
+  it "ends when a player wins with three in a row" do
     first_player = ScriptablePlayer.new(:x, [1,2,3])
     second_player = ScriptablePlayer.new(:o, [4,5])
    
     interface.expect_winner(:x)
-
     run_game(first_player, second_player)
   end
 
-  it "end with a draw between both player" do
+  it "ends with a draw between both player" do
     first_player = ScriptablePlayer.new(:x, [1,2,6,7,9])
     second_player = ScriptablePlayer.new(:o, [4,5,3,8])
    
