@@ -51,6 +51,10 @@ module TicTacToe
       def message_draw
         @output.puts "There was a draw"
       end
+
+      def message(message)
+        @output.puts message
+      end
     end
   end
 end

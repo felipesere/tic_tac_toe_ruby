@@ -33,6 +33,9 @@ module TicTacToe
       def expect_draw
         @draw = true
       end
+
+      def message(message)
+      end
     end
   end
 end
