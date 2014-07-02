@@ -3,7 +3,7 @@ require 'colorize'
 module TicTacToe
   module UI
     class CliInterface
-      def initialize(input = $stdin, output = $stdout, colors=false, clear=false)
+      def initialize(input: $stdin, output: $stdout, colors: false, clear: false)
         @input = input
         @output = output
         @colors = colors

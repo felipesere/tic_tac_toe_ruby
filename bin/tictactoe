@@ -11,7 +11,7 @@ require 'tic_tac_toe/game'
 include TicTacToe
 
 module TicTacToe
-  interface = UI::CliInterface.new($stdin, $stdout, true, true)
+  interface = UI::CliInterface.new(colors: true, clear: true)
 
   human = Players::HumanPlayer.new(:x, interface)
   computer = Players::AiPlayer.create(:o)
