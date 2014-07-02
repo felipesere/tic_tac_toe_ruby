@@ -15,6 +15,5 @@ module TicTacToe
 
   human = Players::HumanPlayer.new(:x, interface)
   computer = Players::AiPlayer.create(:o)
-  game = Game.new(interface, human, computer)
-  game.start
+  Game.new(interface, human, computer).start
 end
