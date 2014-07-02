@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module TicTacToe
   class Game
     def initialize(interface, first_player, second_player)
@@ -8,7 +6,6 @@ module TicTacToe
     end
 
     def start
-      greeting
       final_board, final_player = play
       result(final_board, final_player)
     end
@@ -27,12 +24,7 @@ module TicTacToe
       @player.first.perform_move(board)
     end
 
-    def greeting
-      @interface.message("Hello! You are X. Enjoy!")
-    end
-
     def result(board, last_player)
-      puts "Final board:"
       @interface.render(board)
       if board.has_winner?
         @interface.message_winner(last_player.name)

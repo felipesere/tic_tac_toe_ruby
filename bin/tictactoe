@@ -1,0 +1,20 @@
+#! /usr/bin/env ruby
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'tic_tac_toe/board'
+require 'tic_tac_toe/players/ai_player'
+require 'tic_tac_toe/players/human_player'
+require 'tic_tac_toe/ui/cli_interface'
+require 'tic_tac_toe/game'
+
+include TicTacToe
+
+module TicTacToe
+  interface = UI::CliInterface.new($stdin, $stdout, true, true)
+
+  human = Players::HumanPlayer.new(:x, interface)
+  computer = Players::AiPlayer.create(:o)
+  game = Game.new(interface, human, computer)
+  game.start
+end

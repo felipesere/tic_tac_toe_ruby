@@ -1,7 +1,6 @@
 module TicTacToe
   module Players
     class HumanPlayer
-
       def initialize(name, interface=CliInterface.new)
         @name = name
         @interface = interface
