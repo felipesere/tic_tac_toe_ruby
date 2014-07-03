@@ -29,7 +29,7 @@ module TicTacToe
     end
 
     def possible_moves
-      @places.flatten.select { |item| item.instance_of? Move }
+      elements.select { |item| item.instance_of? Move }
     end
 
     def move_table
@@ -43,9 +43,13 @@ module TicTacToe
     end
 
     def perform_move(player, move)
-      modified_places = @places.map { |row| row.dup }
+      modified_places = duplicate_board 
       modified_places[move.row][move.column] = player.to_sym
       Board.new(modified_places)
+    end
+
+    def duplicate_board
+      @places.map { |row| row.dup }
     end
 
     def marked?(row, column)
@@ -87,8 +91,12 @@ module TicTacToe
       @places.flatten
     end
 
+    def remaining_moves
+      (SIZE ** 2)-possible_moves.size
+    end
+
     def to_s
-      @places.flatten.map do |element|
+      elements.map do |element|
         element.instance_of?(Move) ? "_" : element 
       end.join.to_s
     end

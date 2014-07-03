@@ -40,16 +40,16 @@ describe AiPlayer do
   end
 
   context '#value_of_move' do
-    it 'scores 10 if it wins' do
+    it 'scores positive if it wins' do
       board = Board.create [[:x, :x,  nil], [nil, nil, nil], [nil, nil, nil]]
       move = Move.new(row: 0, column: 2)
-      expect(player.value_of_move(board, move)).to eq 10
+      expect(player.value_of_move(board, move)).to be > 0
     end
 
-    it 'scores -10 if x loses' do
+    it 'scores negative if x loses' do
       board = Board.create [[:o, :o, nil], [nil, nil, nil], [nil, nil, nil]]
       move = Move.new(row: 0, column: 2)
-      expect(player.value_of_move(board, move)).to eq -10
+      expect(player.value_of_move(board, move)).to be < 0
     end
 
     it 'scores 0 if there is a draw' do
@@ -58,10 +58,10 @@ describe AiPlayer do
       expect(player.value_of_move(board, move)).to eq 0
     end
 
-    it 'scores -10 if it is one move away from a loss' do
+    it 'scores negative if it is one move away from a loss' do
       board = Board.create [[:o, :o, nil], [:o, :x, :x], [nil, :x, :o]]
       move = Move.new(row: 0, column: 2)
-      expect(player.value_of_move(board, move)).to eq -10
+      expect(player.value_of_move(board, move)).to be < 0
     end
   end
 end
