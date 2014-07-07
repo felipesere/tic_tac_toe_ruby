@@ -1,9 +1,11 @@
 require 'spec_helper'
+require 'tic_tac_toe/ui/cli_interface'
+require 'tic_tac_toe/board'
 
-describe CliInterface do
-  let(:board) { Board.create_empty }
+describe TicTacToe::UI::CliInterface do
+  let(:board) { TicTacToe::Board.create_empty }
   let(:fake_output) { StringIO.new }
-  let(:display) { CliInterface.new(output: fake_output) }
+  let(:display) { TicTacToe::UI::CliInterface.new(output: fake_output) }
   
   before(:each) do
     fake_output.rewind
@@ -22,7 +24,7 @@ describe CliInterface do
     end
 
     context '#color_cell' do
-      let(:color_display) { CliInterface.new(colors: true) }
+      let(:color_display) { TicTacToe::UI::CliInterface.new(colors: true) }
       it 'draws the :x red' do
         RED="\e[0;31;49m"
         expect(color_display.color_cell(:x)).to include RED
@@ -55,7 +57,7 @@ describe CliInterface do
   context '#read_user_input' do
     it 'properly strips line breaks from input' do
       fake_input = StringIO.new("foo\n\r")
-      display = CliInterface.new(input: fake_input)
+      display = TicTacToe::UI::CliInterface.new(input: fake_input)
       expect(display.read_user_input).to eq 'foo'
     end
   end

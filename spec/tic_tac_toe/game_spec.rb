@@ -1,8 +1,10 @@
 require 'spec_helper'
+require 'tic_tac_toe/game'
+require 'tic_tac_toe/ui/fake_interface'
 
-describe Game do
+describe TicTacToe::Game do
 
-  let(:interface) { FakeInterface.new }
+  let(:interface) { TicTacToe::UI::FakeInterface.new }
 
   it "ends when a player wins with three in a row" do
     first_player = ScriptablePlayer.new(:x, [1,2,3])
@@ -21,7 +23,7 @@ describe Game do
   end
  
   def run_game(first_player, second_player)
-    game = Game.new(interface, first_player, second_player)
+    game = TicTacToe::Game.new(interface, first_player, second_player)
     game.start
   end
 

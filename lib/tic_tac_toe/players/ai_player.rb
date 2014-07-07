@@ -1,3 +1,5 @@
+require 'tic_tac_toe/board'
+
 module TicTacToe
   module Players
     class AiPlayer
@@ -36,7 +38,7 @@ module TicTacToe
       def cache(key, &block)
         @cache ||= {}
         move ||= @cache[key]
-        move ||= block.call()
+        move ||= block.call
         @cache[key]=move
         move
       end

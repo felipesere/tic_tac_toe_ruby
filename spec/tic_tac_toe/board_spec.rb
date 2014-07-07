@@ -1,8 +1,11 @@
 require 'spec_helper'
+require 'tic_tac_toe/board'
 
-describe Board do
-  let(:board) { Board.create_empty }
-  let(:drawn_board) { board = Board.create [[:x, :x, :o], [:o, :o, :x], [:x, :o, :x]] }
+describe TicTacToe::Board do
+  let(:board) { TicTacToe::Board.create_empty }
+  let(:drawn_board) { board = TicTacToe::Board.create [[:x, :x, :o],
+                                                       [:o, :o, :x], 
+                                                       [:x, :o, :x]] }
   context '#create_empty' do
     it 'all moves are still possible (9)' do
       expect(board.possible_moves.size).to eq 9
@@ -32,39 +35,39 @@ describe Board do
 
   context "#create" do
     it "allows creating specific boards" do
-      board = Board.create [[:x, :x, :x ],
-                            [:x, :x, :x ],
-                            [:x, :x, nil]]
+      board = TicTacToe::Board.create [[:x, :x, :x ],
+                                       [:x, :x, :x ],
+                                       [:x, :x, nil]]
       expect(board.possible_moves.size).to eq 1
     end
   end
 
   context "#has_winner" do
     it "has winner for three horizontal" do
-      board = Board.create [[ :x , :x , :x ],
-                            [ nil, nil, nil ],
-                            [ nil, nil, nil ]]
+      board = TicTacToe::Board.create [[ :x , :x , :x ],
+                                       [ nil, nil, nil ],
+                                       [ nil, nil, nil ]]
       expect(board.has_winner?).to eq true
     end
 
     it "has winner for three vertical" do
-      board = Board.create [[ :x , nil , nil ],
-                            [ :x, nil, nil ],
-                            [ :x, nil, nil ]]
+      board = TicTacToe::Board.create [[ :x , nil , nil ],
+                                       [ :x, nil, nil ],
+                                       [ :x, nil, nil ]]
       expect(board.has_winner?).to eq true
     end
 
     it "has winner for first diagonal" do
-      board = Board.create [[ :x , nil , nil ],
-                            [ nil, :x, nil ],
-                            [ nil, nil, :x ]]
+      board = TicTacToe::Board.create [[ :x , nil , nil ],
+                                       [ nil, :x, nil ],
+                                       [ nil, nil, :x ]]
       expect(board.has_winner?).to eq true
     end
 
     it "has winner for second diagonal" do
-      board = Board.create [[ nil , nil , :x  ],
-                            [ nil, :x, nil ],
-                            [ :x, nil, nil ]]
+      board = TicTacToe::Board.create [[ nil , nil , :x],
+                                       [ nil , :x,  nil ],
+                                       [ :x  , nil, nil ]]
       expect(board.has_winner?).to eq true
     end
     it "has no winner for a draw" do

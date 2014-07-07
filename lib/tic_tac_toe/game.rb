@@ -1,3 +1,5 @@
+require 'tic_tac_toe/board'
+
 module TicTacToe
   class Game
     def initialize(interface, first_player, second_player)
