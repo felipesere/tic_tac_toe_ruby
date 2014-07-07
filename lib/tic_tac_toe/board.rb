@@ -91,10 +91,6 @@ module TicTacToe
       @places.flatten
     end
 
-    def remaining_moves
-      (SIZE ** 2)-possible_moves.size
-    end
-
     def to_s
       elements.map do |element|
         element.instance_of?(Move) ? "_" : element 

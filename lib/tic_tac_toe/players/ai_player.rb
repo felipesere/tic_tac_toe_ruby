@@ -64,7 +64,7 @@ module TicTacToe
         if new_board.has_draw?
           0
         elsif new_board.has_winner?
-          10.0 / new_board.remaining_moves
+          10.0 / new_board.possible_moves.size
         else
           opponent_move = @opponent.select_move(new_board)
           -@opponent.value_of_move(new_board, opponent_move)
