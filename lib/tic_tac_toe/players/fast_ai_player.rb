@@ -21,10 +21,9 @@ module TicTacToe
 
         best_move = nil
         best_score = -Float::INFINITY
-        board.possible_moves.each do |move|
+        board.possible_moves.shuffle.each do |move|
           new_board = board.perform_move(players.first, move)
           score =  -alpha_beta(new_board, alpha, beta, players.rotate)
-
           if score > best_score
             best_move, best_score =  move, score
           end
@@ -36,14 +35,13 @@ module TicTacToe
         if is_terminal_board(board)
           value_of_board(board, players.first)
         else
-          best_score = -Float::INFINITY
-          board.possible_moves.each do |move|  
+          best_score = alpha 
+          board.possible_moves.shuffle.each do |move|  
             new_board = board.perform_move(players.first, move)
-            score = -alpha_beta(new_board, -alpha, -beta, players.rotate)
+            score = -alpha_beta(new_board, -beta, -best_score, players.rotate)
             best_score = [score, best_score].max 
             alpha = [alpha, best_score].max
             break if alpha >= beta
-
           end
           best_score
         end

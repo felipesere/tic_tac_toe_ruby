@@ -1,10 +1,9 @@
 TODO:
 
-* remove places with tripple indentation
-* clean up tests... they look... horrible...
+** What is beta used for? It ping-pongs between -INF and +INF... so the break will be either always hit or always missed
 
-* remove any bogus to_s calls
+* improve on the baord. 
+  ** Remove the move class, simple array with ints should do... might make computation a bit more ugly
+  ** Possibily improve the winner methods... get rid of constants...
 
-* create some kind of CLI output
-* create a game class holding the broad game-loop
 

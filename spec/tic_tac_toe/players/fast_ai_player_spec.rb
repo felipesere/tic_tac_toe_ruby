@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'tic_tac_toe/players/a_b_pruning_player'
+require 'tic_tac_toe/players/fast_ai_player'
 require 'tic_tac_toe/board'
 
 describe TicTacToe::Players::ABPruningPlayer do
@@ -20,10 +20,10 @@ describe TicTacToe::Players::ABPruningPlayer do
 
     it 'should pic the easiest direct win' do
       result = player.perform_move(direct_win_board)
-      expect(result.has_winner? ).to be true 
-    end
+        expect(result.has_winner? ).to be true 
+      end
 
-    let(:direct_defense_board) do
+      let(:direct_defense_board) do
       TicTacToe::Board.create [[nil, nil, nil], [:o, :o, nil], [nil, nil, nil]]
     end
 
