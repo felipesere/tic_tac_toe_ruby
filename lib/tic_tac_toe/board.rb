@@ -1,4 +1,5 @@
 require 'digest'
+require 'tic_tac_toe/board_factory'
 
 module TicTacToe
   class Board
@@ -7,10 +8,6 @@ module TicTacToe
 
     def initialize(places)
       @places = places
-    end
-
-    def self.create_empty
-      Board.create(Array.new(SIZE) { Array.new(SIZE) })
     end
 
     def self.create(board)
@@ -65,8 +62,16 @@ module TicTacToe
     end
 
     def has_winner?
-      (rows + columns + diagonals).any? { |line| winner(line) }
-    end 
+      is_winner?(:x) || is_winner?(:o)
+    end
+
+    def is_winner?(player)
+      lines.any? { |line| line == [player, player, player] }
+    end
+
+    def lines
+      @line ||= (rows + columns + diagonals)
+    end
 
     def rows
       @places
@@ -77,14 +82,10 @@ module TicTacToe
     end
 
     def diagonals
-      [
+       [
         (0...SIZE).collect{|i| @places[i][i]}, 
         (0...SIZE).collect{|i| @places[i][SIZE-i-1] }
       ]
-    end
-
-    def winner(line) 
-      line.uniq.size == 1 && line.first.is_a?(Symbol)
     end
 
     def elements
@@ -108,6 +109,14 @@ module TicTacToe
     def initialize(row:, column:)
       @row = row
       @column = column
+    end
+    
+    def ==(other)
+      if other.instance_of? Symbol
+        false
+      else
+        row == other.row && column == other.column
+      end
     end
   end
 end

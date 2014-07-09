@@ -2,15 +2,10 @@ require 'spec_helper'
 require 'tic_tac_toe/board'
 
 describe TicTacToe::Board do
-  let(:board) { TicTacToe::Board.create_empty }
+  let(:board) { TicTacToe::BoardFactory.create_empty }
   let(:drawn_board) { board = TicTacToe::Board.create [[:x, :x, :o],
                                                        [:o, :o, :x], 
                                                        [:x, :o, :x]] }
-  context '#create_empty' do
-    it 'all moves are still possible (9)' do
-      expect(board.possible_moves.size).to eq 9
-    end
-  end
 
   context '#perform_move' do
     let(:move) { board.possible_moves.first }
@@ -43,12 +38,24 @@ describe TicTacToe::Board do
   end
 
   context "#has_winner" do
+  
+    it "has no winner" do
+      board = TicTacToe::Board.create [[ :x , :x , nil ],
+                                       [ nil, nil, nil ],
+                                       [ nil, nil, nil ]]
+      expect(board.has_winner?).to eq false
+    end
+    
     it "has winner for three horizontal" do
       board = TicTacToe::Board.create [[ :x , :x , :x ],
                                        [ nil, nil, nil ],
                                        [ nil, nil, nil ]]
       expect(board.has_winner?).to eq true
+      expect(board.is_winner?(:x)).to eq true
+      expect(board.is_winner?(:o)).to eq false
     end
+
+  
 
     it "has winner for three vertical" do
       board = TicTacToe::Board.create [[ :x , nil , nil ],

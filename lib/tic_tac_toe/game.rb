@@ -1,4 +1,4 @@
-require 'tic_tac_toe/board'
+require 'tic_tac_toe/board_factory'
 
 module TicTacToe
   class Game
@@ -13,7 +13,7 @@ module TicTacToe
     end
 
     def play
-      board = Board.create_empty
+      board = BoardFactory.create_empty
       until board.has_winner? or board.has_draw? do
         board = play_turn(board)
         @player.rotate!

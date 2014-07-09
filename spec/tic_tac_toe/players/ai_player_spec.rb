@@ -4,7 +4,7 @@ require 'tic_tac_toe/players/ai_player'
 describe TicTacToe::Players::AiPlayer do
 
   let(:player) { TicTacToe::Players::AiPlayer.create(:x) }
-  let(:board) { TicTacToe::Board.create_empty }
+  let(:board) { TicTacToe::BoardFactory.create_empty }
   let(:board_size) { board.possible_moves.size }
 
   context '#perform_move' do

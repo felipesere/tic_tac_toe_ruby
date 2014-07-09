@@ -14,5 +14,9 @@ module TicTacToe
       end
       board
     end
+
+    def self.create_draw_board
+      Board.create([[:x,:o,:x],[:o, :x, :o],[:o, :x, :o]])
+    end
   end
 end
