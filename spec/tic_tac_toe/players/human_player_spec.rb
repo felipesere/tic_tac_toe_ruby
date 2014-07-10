@@ -3,7 +3,7 @@ require 'tic_tac_toe/players/human_player'
 require 'tic_tac_toe/ui/fake_interface'
 
 describe TicTacToe::Players::HumanPlayer do
-  let(:board) { TicTacToe::BoardFactory.create_empty }
+  let(:board) { TicTacToe::Board.create_empty }
   let(:human_input) { TicTacToe::UI::FakeInterface.new }
   let(:player) { TicTacToe::Players::HumanPlayer.new(:x, human_input) }
 

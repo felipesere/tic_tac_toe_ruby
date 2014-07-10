@@ -1,13 +1,14 @@
 require 'digest'
-require 'tic_tac_toe/board_factory'
 
 module TicTacToe
   class Board
-
     SIZE = 3
-
     def initialize(places)
       @places = places
+    end
+
+    def self.create_empty
+      Board.new(Array.new(SIZE) { Array.new(SIZE) })
     end
 
     def self.create(board)
@@ -15,7 +16,7 @@ module TicTacToe
     end
 
     def possible_moves
-      elements.each_with_index.map do |element, index| 
+      @moves ||= elements.each_with_index.map do |element, index| 
         if element.nil?
           index
         end
@@ -56,7 +57,7 @@ module TicTacToe
     end
 
     def has_winner?
-      is_winner?(:x) || is_winner?(:o)
+      @has_winner ||= (is_winner?(:x) || is_winner?(:o))
     end
 
     def is_winner?(player)

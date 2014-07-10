@@ -1,5 +1,3 @@
-require 'tic_tac_toe/board_factory'
-
 module TicTacToe
   class Game
     def initialize(interface, first_player, second_player)
@@ -13,7 +11,7 @@ module TicTacToe
     end
 
     def play
-      board = BoardFactory.create_empty
+      board = Board.create_empty
       until board.has_winner? or board.has_draw? do
         board = play_turn(board)
         @player.rotate!

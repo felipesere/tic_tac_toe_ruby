@@ -3,7 +3,7 @@ require 'tic_tac_toe/ui/cli_interface'
 require 'tic_tac_toe/board'
 
 describe TicTacToe::UI::CliInterface do
-  let(:board) { TicTacToe::BoardFactory.create_empty }
+  let(:board) { TicTacToe::Board.create_empty }
   let(:fake_output) { StringIO.new }
   let(:display) { TicTacToe::UI::CliInterface.new(output: fake_output) }
   

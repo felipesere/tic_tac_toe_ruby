@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'tic_tac_toe/board'
 
 describe TicTacToe::Board do
-  let(:board) { TicTacToe::BoardFactory.create_empty }
+  let(:board) { TicTacToe::Board.create_empty }
   let(:drawn_board) { board = TicTacToe::Board.create [[:x, :x, :o],
                                                        [:o, :o, :x], 
                                                        [:x, :o, :x]] }
