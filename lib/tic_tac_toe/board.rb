@@ -70,7 +70,7 @@ module TicTacToe
     end
 
     def lines
-      @line ||= (rows + columns + diagonals)
+      @lines ||= (rows + columns + diagonals)
     end
 
     def rows

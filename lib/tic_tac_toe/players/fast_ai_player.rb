@@ -1,12 +1,15 @@
 require 'tic_tac_toe/board'
+require 'pp'
 
+# see: http://www.iis.sinica.edu.tw/~tshsu/tcg2012/slides/slide7.pd,
 module TicTacToe
   module Players
-    class ABPruningPlayer
+    class FastAiPlayer
       attr_reader :players
       attr_reader :name
       def initialize(name)
-        @players = [name , name == :x ? :o : :x ]
+        opponent_mark = name == :x ? :o : :x 
+        @players = [name , opponent_mark ]
         @name = name
       end
 
@@ -16,14 +19,11 @@ module TicTacToe
       end
 
       def select_move(board)
-        alpha = -Float::INFINITY
-        beta = Float::INFINITY
-
         best_move = nil
         best_score = -Float::INFINITY
         board.possible_moves.shuffle.each do |move|
           new_board = board.perform_move(players.first, move)
-          score =  -alpha_beta(new_board, alpha, beta, players.rotate)
+          score =  -alpha_beta(new_board,-Float::INFINITY , Float::INFINITY, players.rotate)
           if score > best_score
             best_move, best_score =  move, score
           end
@@ -35,11 +35,11 @@ module TicTacToe
         if is_terminal_board(board)
           value_of_board(board, players.first)
         else
-          best_score = alpha 
-          board.possible_moves.shuffle.each do |move|  
+          best_score = -Float::INFINITY 
+          board.possible_moves.each do |move|  
             new_board = board.perform_move(players.first, move)
-            score = -alpha_beta(new_board, -beta, -best_score, players.rotate)
-            best_score = [score, best_score].max 
+            score = -alpha_beta(new_board, -beta, -alpha, players.rotate)
+            best_score = [score, best_score].max
             alpha = [alpha, best_score].max
             break if alpha >= beta
           end
@@ -47,7 +47,7 @@ module TicTacToe
         end
       end
 
-      def is_terminal_board(board)
+     def is_terminal_board(board)
         board.has_winner? || board.has_draw?
       end
       
@@ -55,10 +55,11 @@ module TicTacToe
         if board.has_draw?
           return 0
         end
+        value = board.possible_moves.size+1
         if board.is_winner?(player)
-          board.possible_moves.size
+          value
         else
-          -board.possible_moves.size
+          -value
         end
       end
     end

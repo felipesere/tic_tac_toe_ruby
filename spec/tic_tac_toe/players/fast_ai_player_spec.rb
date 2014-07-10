@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'tic_tac_toe/players/fast_ai_player'
 require 'tic_tac_toe/board'
 
-describe TicTacToe::Players::ABPruningPlayer do
+describe TicTacToe::Players::FastAiPlayer do
 
-  let(:player) { TicTacToe::Players::ABPruningPlayer.new(:x) }
+  let(:player) { TicTacToe::Players::FastAiPlayer.new(:x) }
   let(:board) { TicTacToe::BoardFactory.create_empty }
   let(:board_size) { board.possible_moves.size }
 
