@@ -43,25 +43,27 @@ describe TicTacToe::Players::AiPlayer do
   context '#value_of_move' do
     it 'scores positive if it wins' do
       board = TicTacToe::Board.create [[:x, :x,  nil], [nil, nil, nil], [nil, nil, nil]]
-      move = TicTacToe::Move.new(row: 0, column: 2)
+      move = 3
       expect(player.value_of_move(board, move)).to be > 0
     end
 
     it 'scores negative if x loses' do
       board = TicTacToe::Board.create [[:o, :o, nil], [nil, nil, nil], [nil, nil, nil]]
-      move = TicTacToe::Move.new(row: 0, column: 2)
+      move = 3
       expect(player.value_of_move(board, move)).to be < 0
     end
 
     it 'scores 0 if there is a draw' do
       board = TicTacToe::Board.create [[:o, :o, :x], [:x, :x, :o], [:o, :x, nil]]
-      move = TicTacToe::Move.new(row: 2, column: 2)
+      move = 8
       expect(player.value_of_move(board, move)).to eq 0
     end
 
     it 'scores negative if it is one move away from a loss' do
-      board = TicTacToe::Board.create [[:o, :o, nil], [:o, :x, :x], [nil, :x, :o]]
-      move = TicTacToe::Move.new(row: 0, column: 2)
+      board = TicTacToe::Board.create [[:o, :o, nil], 
+                                       [:o, :x, :x],
+                                       [nil, :x, :o]]
+      move = 2
       expect(player.value_of_move(board, move)).to be < 0
     end
   end

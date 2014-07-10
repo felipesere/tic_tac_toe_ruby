@@ -35,7 +35,7 @@ describe TicTacToe::Game do
     end
 
     def perform_move(board)
-      board.perform_move(@name, board.move_table[@moves.shift])
+      board.perform_move(@name, board.move_table.fetch(@moves.shift))
     end
   end
 end

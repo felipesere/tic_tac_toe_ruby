@@ -36,7 +36,7 @@ describe TicTacToe::Players::FastAiPlayer do
       it 'marks the middle row on the left to fork' do
         board = TicTacToe::Board.create [[:x, :o, nil ], [nil, :x, nil], [nil, nil,:o]]
         result = player.select_move(board)
-        moves = [TicTacToe::Move.new(row:1, column: 0), TicTacToe::Move.new(row:2, column:0)]
+        moves = [3, 6]
         expect(moves).to include result
       end
     end
@@ -44,7 +44,7 @@ describe TicTacToe::Players::FastAiPlayer do
     it "defends against a corner" do
       board = TicTacToe::Board.create [[:o, nil, nil],[nil, nil, nil],[nil,nil,nil]]
       result = player.select_move(board)
-      expect(result).to eq TicTacToe::Move.new(row: 1, column: 1)
+      expect(result).to eq 4 
     end
   end
 end

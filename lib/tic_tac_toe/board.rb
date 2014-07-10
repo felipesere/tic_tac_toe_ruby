@@ -11,38 +11,32 @@ module TicTacToe
     end
 
     def self.create(board)
-      board.each_index do |row|
-        board[row].each_index do |column|
-          add_move(board, row, column)
-        end
-      end
       Board.new(board)
     end
 
-    def self.add_move(board, row, column)
-      if board[row][column] == nil 
-        board[row][column] = Move.new(row: row, column: column)
-      end
-    end
-
     def possible_moves
-      elements.select { |item| item.instance_of? Move }
+      elements.each_with_index.map do |element, index| 
+        if element.nil?
+          index
+        end
+      end.compact
     end
 
     def move_table
       Hash.new.tap do |hash|
         elements.each.with_index(1) do |cell, index|
-          if cell.instance_of? Move
-            hash[index] = cell
+          if cell.nil?
+            hash[index] = index - 1
           end
         end
       end
     end
 
     def perform_move(player, move)
-      modified_places = duplicate_board 
-      modified_places[move.row][move.column] = player.to_sym
-      Board.new(modified_places)
+      raise "Illegal move #{move}" unless possible_moves.include? move
+      new_board = duplicate_board.flatten 
+      new_board[move] = player.to_sym
+      Board.new(new_board.each_slice(SIZE).to_a)
     end
 
     def duplicate_board
@@ -50,7 +44,7 @@ module TicTacToe
     end
 
     def marked?(row, column)
-      @places[row][column].instance_of? Symbol
+      !@places[row][column].nil?
     end
 
     def is_finished?
@@ -94,29 +88,12 @@ module TicTacToe
 
     def to_s
       elements.map do |element|
-        element.instance_of?(Move) ? "_" : element 
+        element.nil? ? "_" : element 
       end.join.to_s
     end
 
     def generate_key
       Digest::MD5.hexdigest(self.to_s).to_sym
-    end
-  end
-
-  class Move
-    attr_reader :row, :column
-
-    def initialize(row:, column:)
-      @row = row
-      @column = column
-    end
-    
-    def ==(other)
-      if other.instance_of? Symbol
-        false
-      else
-        row == other.row && column == other.column
-      end
     end
   end
 end
