@@ -23,7 +23,7 @@ module TicTacToe
         best_score = -Float::INFINITY
         board.possible_moves.shuffle.each do |move|
           new_board = board.perform_move(players.first, move)
-          score =  -alpha_beta(new_board,-Float::INFINITY , Float::INFINITY, players.rotate)
+          score =  -alpha_beta(new_board, -Float::INFINITY , Float::INFINITY, players.rotate)
           if score > best_score
             best_move, best_score =  move, score
           end

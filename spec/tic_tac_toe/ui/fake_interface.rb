@@ -5,6 +5,22 @@ module TicTacToe
         @value = value
       end
 
+      def play_on(game)
+        until game.is_finished? do
+          game.tick
+          render(game.current_board)
+        end
+        result(game.current_board)
+      end
+
+      def result(board)
+        if board.has_winner?
+          message_winner(:x)
+        else
+          message_draw
+        end
+      end
+
       def read_user_input
         if @value.empty?
           raise "Read more than expected"

@@ -49,11 +49,11 @@ module TicTacToe
     end
 
     def is_finished?
-      possible_moves.empty?
+      has_winner? || has_draw?
     end
 
     def has_draw?
-      !has_winner? && is_finished?
+      !has_winner? && possible_moves.empty?
     end
 
     def has_winner?

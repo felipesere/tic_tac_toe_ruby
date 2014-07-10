@@ -1,36 +1,26 @@
+require 'tic_tac_toe/board'
+
 module TicTacToe
   class Game
-    def initialize(interface, first_player, second_player)
+    
+    attr_reader :current_board
+    
+    def initialize(first_player, second_player)
       @player = [first_player, second_player]
-      @interface = interface 
+      @current_board = Board.create_empty
     end
 
-    def start
-      final_board, final_player = play
-      result(final_board, final_player)
+    def is_finished?
+      @current_board.is_finished? 
     end
 
-    def play
-      board = Board.create_empty
-      until board.has_winner? or board.has_draw? do
-        board = play_turn(board)
-        @player.rotate!
-      end
-      [board, @player.last]
+    def tick
+      @current_board = play_turn
+      @player.rotate!
     end
 
-    def play_turn(board)
-      @interface.render(board)
-      @player.first.perform_move(board)
-    end
-
-    def result(board, last_player)
-      @interface.render(board)
-      if board.has_winner?
-        @interface.message_winner(last_player.name)
-      else
-        @interface.message_draw
-      end
+    def play_turn
+      @player.first.perform_move(@current_board)
     end
   end
 end

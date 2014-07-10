@@ -10,8 +10,9 @@ require 'tic_tac_toe/game'
 
 module TicTacToe
   interface = UI::CliInterface.new(colors: true, clear: true)
-
   human = Players::HumanPlayer.new(:x, interface)
   computer = Players::FastAiPlayer.new(:o)
-  Game.new(interface, human, computer).start
+
+  game = Game.new(human, computer)
+  interface.play_on(game)
 end

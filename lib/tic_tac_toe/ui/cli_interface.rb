@@ -10,6 +10,15 @@ module TicTacToe
         @clear = clear
       end
 
+      def play_on(game)
+        render(game.current_board)
+        until game.is_finished? do 
+          game.tick
+          render(game.current_board)
+        end
+        result(game.current_board)
+      end
+
       def render(board)
         message %x{clear} if @clear
         printed_board = board.elements.collect.each.with_index(1) do |cell, index|
@@ -36,12 +45,15 @@ module TicTacToe
         result
       end
 
+      def result(board)
+        if board.has_winner?
+          message_winner(:x)
+        else
+          message_draw
+        end
+      end
       def input_error(value)
         message "#{value} was not a valid move. Try again."
-      end
-
-      def read_user_input
-        @input.gets.chomp
       end
 
       def message_winner(player)
@@ -54,6 +66,10 @@ module TicTacToe
 
       def message(message)
         @output.puts message
+      end
+
+      def read_user_input
+        @input.gets.chomp
       end
     end
   end
