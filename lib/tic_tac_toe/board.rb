@@ -34,13 +34,13 @@ module TicTacToe
 
     def perform_move(player, move)
       raise "Illegal move #{move}" unless possible_moves.include? move
-      new_board = duplicate_board.flatten 
+      new_board = elements.dup
       new_board[move] = player.to_sym
-      Board.new(new_board.each_slice(SIZE).to_a)
+      Board.new(slice(new_board))
     end
 
-    def duplicate_board
-      @places.map { |row| row.dup }
+    def slice(board)
+      board.each_slice(SIZE).to_a
     end
 
     def marked?(row, column)
@@ -90,10 +90,6 @@ module TicTacToe
       elements.map do |element|
         element.nil? ? "_" : element 
       end.join.to_s
-    end
-
-    def generate_key
-      Digest::MD5.hexdigest(self.to_s).to_sym
     end
   end
 end

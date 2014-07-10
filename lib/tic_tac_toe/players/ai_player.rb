@@ -28,14 +28,15 @@ module TicTacToe
       end
 
       def select_move(board)
-        cache(board.generate_key) do 
+        cache(board) do 
           move ||= winning_move(board)
           move ||= defending_move(board)
           move ||= next_best_alternative(board)
         end
       end
 
-      def cache(key, &block)
+      def cache(board, &block)
+        key = board.to_s 
         @cache ||= {}
         move ||= @cache[key]
         move ||= block.call
