@@ -61,4 +61,63 @@ describe TicTacToe::UI::CliInterface do
       expect(display.read_user_input).to eq 'foo'
     end
   end
+
+  # These tests need some heavy love...
+  context '#play_on' do
+    let(:game) { FakeGame.new }
+    it "notifies win for x" do
+      game.winning_board_for(:x)
+      display.play_on(game)
+      expect(fake_output.string).to include "The winner is x"
+    end
+
+    it "notifies win for o" do
+      game.winning_board_for(:o)
+      display.play_on(game)
+      expect(fake_output.string).to include "The winner is o"
+    end
+  
+    it "notifies for a draw" do
+      game.board_with_draw
+      display.play_on(game)
+      expect(fake_output.string).to include "There was a draw"
+    end
+
+    it "runs for one more round" do
+      game.second_last_board(:x)
+      display.play_on(game)
+      expect(fake_output.string).to include "There was a draw" 
+    end
+  end
+
+  class FakeGame
+
+    def tick
+      move = @current_board.possible_moves.first
+      @current_board = @current_board.perform_move(@player, move)
+    end
+    
+    def winning_board_for(player)
+      @current_board = TicTacToe::Board.new([[player, player, player], 
+                                             [player, player, player], 
+                                             [player, player, player]]) 
+    end
+
+    def second_last_board(player)
+      @current_board = TicTacToe::Board.new([[nil, :o, :x],[:x, :o, :x],[:o, :x, :o]])
+      @player = player
+    end
+
+    def board_with_draw
+      @current_board = TicTacToe::Board.new([[:x, :o, :x],[:x, :o, :x],[:o, :x, :o]])
+    end
+
+    def current_board
+      @current_board
+    end
+
+    def is_finished?
+      @current_board.is_finished?
+    end
+  end
 end

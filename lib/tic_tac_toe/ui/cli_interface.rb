@@ -11,17 +11,16 @@ module TicTacToe
       end
 
       def play_on(game)
-        render(game.current_board)
         until game.is_finished? do 
-          game.tick
           render(game.current_board)
+          game.tick
         end
         result(game.current_board)
       end
 
       def render(board)
         message %x{clear} if @clear
-        printed_board = board.elements.collect.each.with_index(1) do |cell, index|
+        printed_board = board.elements.map.each.with_index(1) do |cell, index|
           result = print_element(cell, index)
           result += "\n" if index % 3 == 0
           result
@@ -45,9 +44,15 @@ module TicTacToe
         result
       end
 
+      # Clean this messy method...
       def result(board)
+        render(board)
         if board.has_winner?
-          message_winner(:x)
+          if board.is_winner?(:x)
+            message_winner(:x)
+          else
+            message_winner(:o)
+          end
         else
           message_draw
         end
