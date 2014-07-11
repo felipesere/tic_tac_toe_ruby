@@ -3,9 +3,9 @@ require 'tic_tac_toe/board'
 module TicTacToe
   module Players
     class HumanPlayer
-      def initialize(name, interface=CliInterface.new)
+      def initialize(name, params)
         @name = name
-        @interface = interface
+        @interface = params.fetch(:interface)
       end
 
       def perform_move(board)

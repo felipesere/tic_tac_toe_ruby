@@ -33,10 +33,10 @@ module TicTacToe
       end
     end
 
-    def perform_move(player, move)
+    def perform_move(name, move)
       raise "Illegal move #{move}" unless possible_moves.include? move
       new_board = elements.dup
-      new_board[move] = player.to_sym
+      new_board[move] = name.to_sym
       Board.new(slice(new_board))
     end
 
@@ -60,8 +60,17 @@ module TicTacToe
       @has_winner ||= (is_winner?(:x) || is_winner?(:o))
     end
 
-    def is_winner?(player)
-      lines.any? { |line| line == [player, player, player] }
+    def winner
+      raise "There is no winner yet" unless has_winner?
+      if is_winner?(:x)
+        :x
+      else
+        :o
+      end
+    end
+
+    def is_winner?(name)
+      lines.any? { |line| line == [name, name, name] }
     end
 
     def lines

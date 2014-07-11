@@ -3,13 +3,23 @@ require 'colorize'
 module TicTacToe
   module UI
     class CliInterface
-      def initialize(input: $stdin, output: $stdout, colors: false, clear: false)
+      def initialize(input: $stdin, output: $stdout, colors: false, clear: false, settings: Settings.new )
         @input = input
         @output = output
         @colors = colors
         @clear = clear
+        @settings = settings
+        @settings.use_interface(self)
       end
 
+      def get_selected_players
+        @settings.options.each_with_index do |option, index|
+          message "#{index} #{option.line}"
+        end
+        choice = read_user_input.to_i
+        @settings.options[choice]
+      end
+      
       def play_on(game)
         until game.is_finished? do 
           render(game.current_board)
@@ -29,34 +39,30 @@ module TicTacToe
       end
 
       def print_element(cell, index)
-        if cell.instance_of? Symbol
-          color_cell(cell)
-        else
+        if cell.nil?
           "[#{index}]"
+        else
+          color_cell(cell)
         end
       end
 
       def color_cell(cell)
         result = "[#{cell}]"
         if @colors
-          result = cell.to_sym == :x ? result.red : result.blue
+          result = cell == :x ? result.red : result.blue
         end
         result
       end
 
-      # Clean this messy method...
       def result(board)
         render(board)
         if board.has_winner?
-          if board.is_winner?(:x)
-            message_winner(:x)
-          else
-            message_winner(:o)
-          end
+          message_winner(board.winner)
         else
           message_draw
         end
       end
+      
       def input_error(value)
         message "#{value} was not a valid move. Try again."
       end

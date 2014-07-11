@@ -3,16 +3,13 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'tic_tac_toe/ui/cli_interface'
-require 'tic_tac_toe/players/human_player'
-require 'tic_tac_toe/players/ai_player'
-require 'tic_tac_toe/players/fast_ai_player'
 require 'tic_tac_toe/game'
+require 'tic_tac_toe/ui/settings'
 
 module TicTacToe
-  interface = UI::CliInterface.new(colors: true, clear: true)
-  human = Players::HumanPlayer.new(:x, interface)
-  computer = Players::FastAiPlayer.new(:o)
+  interface = UI::CliInterface.new(colors: true, clear: true, settings: UI::Settings.new)
 
-  game = Game.new(human, computer)
+  players = interface.get_selected_players.players
+  game = Game.new(*players)
   interface.play_on(game)
 end
