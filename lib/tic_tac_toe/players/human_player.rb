@@ -3,6 +3,9 @@ require 'tic_tac_toe/board'
 module TicTacToe
   module Players
     class HumanPlayer
+
+      attr_reader :name
+
       def initialize(name, io: io)
         @name = name
         @io = io
