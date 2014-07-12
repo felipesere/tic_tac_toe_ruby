@@ -2,7 +2,7 @@ require 'tic_tac_toe/players/player_factory'
 
 describe TicTacToe::Players::PlayerFactory do
 
-  let(:factory) {TicTacToe::Players::PlayerFactory.new}
+  let(:factory) {TicTacToe::Players::PlayerFactory.new(params: {io: false}) }
 
   {
     :human    => TicTacToe::Players::HumanPlayer,
@@ -17,5 +17,9 @@ describe TicTacToe::Players::PlayerFactory do
 
   it "announces the types it supportes" do
     expect(factory.types).to eq [:human, :computer]
+  end
+  
+  it "create the proper permutations" do
+    expect(factory.combinations).to include([:human,:human], [:human,:computer],[:computer, :human],[:computer,:computer])
   end
 end

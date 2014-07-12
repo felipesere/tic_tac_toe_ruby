@@ -52,11 +52,8 @@ module TicTacToe
 
     def winner
       raise "There is no winner yet" unless has_winner?
-      if is_winner?(:x)
-        :x
-      else
-        :o
-      end
+      winner = lines.find { |line| line.uniq.size == 1 }
+      winner.uniq.first
     end
 
     def is_winner?(name)

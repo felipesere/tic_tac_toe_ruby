@@ -1,23 +1,15 @@
 require 'colorize'
-require 'tic_tac_toe/players/human_player'
-require 'tic_tac_toe/players/fast_ai_player'
 require 'tic_tac_toe/ui/io'
+require 'tic_tac_toe/players/player_factory'
 
 module TicTacToe
   module UI
     class CliInterface
-      def initialize(io: IO.new, colors: false, clear: false)
+      def initialize(io: IO.new, colors: false, clear: false, factory: nil)
         @colors = colors
         @clear = clear
         @io = io
-        raise "No io?" if @io.nil?
-      end
-
-      def get_selected_players
-        [
-          TicTacToe::Players::HumanPlayer.new(:x, io: @io),
-          TicTacToe::Players::FastAiPlayer.new(:o)
-        ]
+        @factory = factory
       end
 
       def play_on(game)
@@ -26,6 +18,23 @@ module TicTacToe
           game.tick
         end
         result(game.current_board)
+      end
+
+      def print_options(options)
+        options.each_with_index do |option, i|
+          @io.message "#{i} #{option_line(option)}"
+        end
+      end
+
+      def option_line(option)
+        option.join(" vs. ")
+      end
+
+      def get_chosen_players
+        options = @factory.combinations 
+        print_options(options)
+        choice = @io.read.to_i
+        @factory.players(options[choice])
       end
 
       def render(board)

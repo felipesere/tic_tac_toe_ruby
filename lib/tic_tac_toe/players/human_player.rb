@@ -6,9 +6,9 @@ module TicTacToe
 
       attr_reader :name
 
-      def initialize(name, io: io)
+      def initialize(name, params: params)
         @name = name
-        @io = io
+        @io = params.fetch(:io)
       end
 
       def perform_move(board)

@@ -6,7 +6,7 @@ module TicTacToe
     attr_reader :current_board
     
     def initialize(first_player, second_player)
-      @player = [first_player, second_player]
+      @players = [first_player, second_player]
       @current_board = Board.create_empty
     end
 
@@ -16,11 +16,11 @@ module TicTacToe
 
     def tick
       @current_board = play_turn
-      @player.rotate!
+      @players.rotate!
     end
 
     def play_turn
-      @player.first.perform_move(@current_board)
+      @players.first.perform_move(@current_board)
     end
   end
 end

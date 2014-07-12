@@ -55,11 +55,17 @@ describe TicTacToe::UI::CliInterface do
     end
   end
 
-  xcontext '#read_user_input' do
-    it 'properly strips line breaks from input' do
-      fake_input = StringIO.new("foo\n\r")
-      display = TicTacToe::UI::CliInterface.new(input: fake_input)
-      expect(display.read_user_input).to eq 'foo'
+  context '#get_chosen_players' do
+    it "shows a single combination of players" do
+      factory = double('factory')
+      allow(factory).to receive(:combinations) { [[:a, :b]] }
+      allow(factory).to receive(:players) { }
+      display = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+
+      fake_io.chooses(0)
+
+      display.get_chosen_players
+      expect(fake_io.string).to match /a vs. b/
     end
   end
 
@@ -72,12 +78,6 @@ describe TicTacToe::UI::CliInterface do
       expect(fake_io.string).to include "The winner is x"
     end
 
-    it "notifies win for o" do
-      game.winning_board_for(:o)
-      display.play_on(game)
-      expect(fake_io.string).to include "The winner is o"
-    end
-  
     it "notifies for a draw" do
       game.board_with_draw
       display.play_on(game)
