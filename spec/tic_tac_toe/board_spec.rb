@@ -9,12 +9,13 @@ describe TicTacToe::Board do
 
   context "#possible_moves" do
     it "has all moves still open" do
-      expect(board.possible_moves).to eq [0,1,2,3,4,5,6,7,8]
+      expect(board.possible_moves).to eq [1,2,3,4,5,6,7,8, 9]
     end
 
     it "no longer has the center" do
-      new_board = board.perform_move(:x, 4)
-      expect(new_board.possible_moves).not_to include 4
+      center = 5
+      new_board = board.perform_move(:x, center)
+      expect(new_board.possible_moves).not_to include center
     end
   end
 

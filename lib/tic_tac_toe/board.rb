@@ -16,27 +16,17 @@ module TicTacToe
     end
 
     def possible_moves
-      @moves ||= elements.each_with_index.map do |element, index| 
+      @moves ||= elements.each.with_index(1).map do |element, index| 
         if element.nil?
           index
         end
       end.compact
     end
 
-    def move_table
-      Hash.new.tap do |hash|
-        elements.each.with_index(1) do |cell, index|
-          if cell.nil?
-            hash[index] = index - 1
-          end
-        end
-      end
-    end
-
     def perform_move(name, move)
       raise "Illegal move #{move}" unless possible_moves.include? move
       new_board = elements.dup
-      new_board[move] = name.to_sym
+      new_board[move-=1] = name.to_sym
       Board.new(slice(new_board))
     end
 

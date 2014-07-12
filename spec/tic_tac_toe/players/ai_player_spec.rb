@@ -55,7 +55,7 @@ describe TicTacToe::Players::AiPlayer do
 
     it 'scores 0 if there is a draw' do
       board = TicTacToe::Board.create [[:o, :o, :x], [:x, :x, :o], [:o, :x, nil]]
-      move = 8
+      move = 9
       expect(player.value_of_move(board, move)).to eq 0
     end
 
@@ -63,7 +63,7 @@ describe TicTacToe::Players::AiPlayer do
       board = TicTacToe::Board.create [[:o, :o, nil], 
                                        [:o, :x, :x],
                                        [nil, :x, :o]]
-      move = 2
+      move = 3
       expect(player.value_of_move(board, move)).to be < 0
     end
   end

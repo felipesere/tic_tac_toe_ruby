@@ -3,18 +3,18 @@ require 'tic_tac_toe/board'
 module TicTacToe
   module Players
     class HumanPlayer
-      def initialize(name, params)
+      def initialize(name, io: io)
         @name = name
-        @interface = params.fetch(:interface)
+        @io = io
       end
 
       def perform_move(board)
-        moves = board.move_table
-        value = @interface.read_user_input.to_i
+        moves = board.possible_moves
+        value = @io.read.to_i
         if moves.include?(value)
-          board.perform_move(@name, moves[value])
+          board.perform_move(@name, value)
         else
-          @interface.input_error(value)
+          @io.message "invalid input: #{value}"
           perform_move(board)
         end
       end
