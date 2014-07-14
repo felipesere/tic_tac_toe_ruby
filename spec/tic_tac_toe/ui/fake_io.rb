@@ -9,7 +9,7 @@ module TicTacToe
         @messages = []
       end
 
-      def message(message)
+      def write(message)
         @messages ||= []
         @messages << message
       end

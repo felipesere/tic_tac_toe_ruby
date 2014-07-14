@@ -17,7 +17,7 @@ module TicTacToe
         if moves.include?(value)
           board.perform_move(@name, value)
         else
-          @io.message "invalid input: #{value}"
+          @io. write "invalid input: #{value}"
           perform_move(board)
         end
       end

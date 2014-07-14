@@ -20,6 +20,6 @@ describe TicTacToe::Players::PlayerFactory do
   end
   
   it "create the proper permutations" do
-    expect(factory.combinations).to include([:human,:human], [:human,:computer],[:computer, :human],[:computer,:computer])
+    expect(factory.player_combinations).to include([:human,:human], [:human,:computer],[:computer, :human],[:computer,:computer])
   end
 end

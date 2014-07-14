@@ -29,11 +29,11 @@ module TicTacToe
         TYPES.keys
       end
       
-      def combinations
-        types.permutation(2).to_a + dupplications 
+      def player_combinations
+        types.permutation(2).to_a + duplications 
       end
 
-      def dupplications
+      def duplications
         types.collect { |x| [x,x] }
       end
     end

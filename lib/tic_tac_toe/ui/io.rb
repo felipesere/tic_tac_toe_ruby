@@ -6,7 +6,7 @@ module TicTacToe
         @out = output
       end
 
-      def message(message)
+      def write(message)
         @out.puts message
       end
 

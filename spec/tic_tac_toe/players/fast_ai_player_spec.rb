@@ -4,8 +4,8 @@ require 'tic_tac_toe/board'
 
 describe TicTacToe::Players::FastAiPlayer do
 
-  let(:player) { TicTacToe::Players::FastAiPlayer.new(:x) }
-  let(:board) { TicTacToe::Board.create_empty }
+  let(:player)     { TicTacToe::Players::FastAiPlayer.new(:x) }
+  let(:board)      { TicTacToe::Board.create_empty }
   let(:board_size) { board.possible_moves.size }
 
   context '#perform_move' do

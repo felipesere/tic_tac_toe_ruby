@@ -22,7 +22,7 @@ module TicTacToe
 
       def print_options(options)
         options.each_with_index do |option, i|
-          @io.message "#{i} #{option_line(option)}"
+          @io.write "#{i} #{option_line(option)}"
         end
       end
 
@@ -31,20 +31,25 @@ module TicTacToe
       end
 
       def get_chosen_players
-        options = @factory.combinations 
+        clear_screen
+        options = @factory.player_combinations 
         print_options(options)
         choice = @io.read.to_i
         @factory.players(options[choice])
       end
 
+      def clear_screen
+        @io.write %x{clear} if @clear
+      end
+
       def render(board)
-        @io.message %x{clear} if @clear
+        clear_screen
         printed_board = board.elements.map.each.with_index(1) do |cell, index|
           result = print_element(cell, index)
           result += "\n" if index % 3 == 0
           result
         end.join
-        @io.message printed_board
+        @io.write printed_board
       end
 
       def print_element(cell, index)
@@ -73,15 +78,15 @@ module TicTacToe
       end
       
       def input_error(value)
-        @io.message "#{value} was not a valid move. Try again."
+        @io.write "#{value} was not a valid move. Try again."
       end
 
       def message_winner(player)
-        @io.message "The winner is #{player}"
+        @io.write "The winner is #{player}"
       end
 
       def message_draw
-        @io.message "There was a draw"
+        @io.write "There was a draw"
       end
     end
   end
