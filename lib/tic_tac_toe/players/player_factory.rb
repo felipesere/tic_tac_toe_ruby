@@ -21,7 +21,9 @@ module TicTacToe
         ]
       end
 
-      def player(type:, name:)
+      def player(params)
+        type = params.fetch(:type)
+        name = params.fetch(:name)
         TYPES.fetch(type).new(name, params: @params)
       end
 

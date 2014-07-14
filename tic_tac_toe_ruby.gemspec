@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
   gem.add_development_dependency 'colorize', '~> 0.7'
+  gem.add_development_dependency 'simplecov', '~> 0.7'
 end

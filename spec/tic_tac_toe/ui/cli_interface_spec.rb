@@ -90,7 +90,9 @@ describe TicTacToe::UI::CliInterface do
   end
   
   class FakePlayerFactory
-    def initialize(first_player:, second_player:)
+    def initialize(params)
+      first_player = params.fetch(:first_player)
+      second_player = params.fetch(:second_player)
       @combo = [first_player, second_player]
     end
 
