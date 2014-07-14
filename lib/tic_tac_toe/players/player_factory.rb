@@ -5,7 +5,7 @@ module TicTacToe
   module Players
     class PlayerFactory
 
-      def initialize(params:  {})
+      def initialize(params)
         @params = params
       end
 
@@ -24,7 +24,7 @@ module TicTacToe
       def player(params)
         type = params.fetch(:type)
         name = params.fetch(:name)
-        TYPES.fetch(type).new(name, params: @params)
+        TYPES.fetch(type).new(name, @params)
       end
 
       def types

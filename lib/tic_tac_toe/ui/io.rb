@@ -1,9 +1,9 @@
 module TicTacToe
   module UI
     class IO
-      def initialize(input: $stdin, output: $stdout)
-        @in = input
-        @out = output
+      def initialize(params)
+        @in = params[:input] || $stdin
+        @out = params[:output] || $stdout
       end
 
       def write(message)

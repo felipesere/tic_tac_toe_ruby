@@ -2,7 +2,7 @@ require 'tic_tac_toe/players/player_factory'
 
 describe TicTacToe::Players::PlayerFactory do
 
-  let(:factory) {TicTacToe::Players::PlayerFactory.new(params: {io: false}) }
+  let(:factory) {TicTacToe::Players::PlayerFactory.new(io: false) }
 
   {
     :human    => TicTacToe::Players::HumanPlayer,
