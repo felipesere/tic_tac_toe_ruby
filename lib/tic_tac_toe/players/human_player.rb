@@ -6,7 +6,7 @@ module TicTacToe
 
       attr_reader :name
 
-      def initialize(name, params: params)
+      def initialize(name, params)
         @name = name
         @io = params.fetch(:io)
       end

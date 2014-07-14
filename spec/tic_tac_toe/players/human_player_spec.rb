@@ -5,7 +5,7 @@ require 'tic_tac_toe/ui/fake_io'
 describe TicTacToe::Players::HumanPlayer do
   let(:board) { TicTacToe::Board.create_empty }
   let(:human_input) { TicTacToe::UI::FakeIO.new }
-  let(:player) { TicTacToe::Players::HumanPlayer.new(:x, params: {io: human_input}) }
+  let(:player) { TicTacToe::Players::HumanPlayer.new(:x, {io: human_input}) }
 
   it "markes the right place without offset" do
     human_input.chooses(1)

@@ -7,7 +7,7 @@ module TicTacToe
     class FastAiPlayer
       attr_reader :players
       attr_reader :name
-      def initialize(name, params: {})
+      def initialize(name, params)
         opponent_mark = name == :x ? :o : :x 
         @players = [name , opponent_mark ]
         @name = name

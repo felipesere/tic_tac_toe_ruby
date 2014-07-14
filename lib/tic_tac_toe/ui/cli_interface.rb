@@ -4,11 +4,11 @@ require 'tic_tac_toe/ui/io'
 module TicTacToe
   module UI
     class CliInterface
-      def initialize(io: IO.new, colors: false, clear: false, factory: nil)
-        @colors = colors
-        @clear = clear
-        @io = io
-        @factory = factory
+      def initialize(params)
+        @colors = params[:colors] || false
+        @clear = params[:clear] || false 
+        @io = params[:io] || IO.new
+        @factory = params[:factory] || nil
       end
 
       def play_on(game)

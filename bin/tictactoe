@@ -8,8 +8,8 @@ require 'tic_tac_toe/game'
 require 'tic_tac_toe/players/player_factory'
 
 module TicTacToe
-  io = UI::IO.new
-  factory = Players::PlayerFactory.new(params: {io: io})
+  io = UI::IO.new(input: $stdin, output: $stdout)
+  factory = Players::PlayerFactory.new(io: io)
   
   interface = UI::CliInterface.new(io: io, colors: true, clear: true, factory: factory)
   

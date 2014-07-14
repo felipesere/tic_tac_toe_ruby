@@ -31,7 +31,7 @@ describe TicTacToe::Players::AiPlayer do
       expect(result.marked?(1, 2)).to be true
     end
 
-    context 'set up fork where possible' do
+    xcontext 'set up fork where possible' do
       it 'marks the middle row on the left to fork' do
         board = TicTacToe::Board.create [[:x, :o, nil ], [nil, :x, nil], [nil, nil,:o]]
         result = player.perform_move(board)
