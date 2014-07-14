@@ -26,7 +26,8 @@ module TicTacToe
     def perform_move(name, move)
       raise "Illegal move #{move}" unless possible_moves.include? move
       new_board = elements.dup
-      new_board[move-=1] = name.to_sym
+      index = move-1
+      new_board[index] = name.to_sym
       Board.new(slice(new_board))
     end
 
