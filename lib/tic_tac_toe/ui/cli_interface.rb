@@ -1,6 +1,5 @@
 require 'colorize'
 require 'tic_tac_toe/ui/io'
-require 'tic_tac_toe/players/player_factory'
 
 module TicTacToe
   module UI

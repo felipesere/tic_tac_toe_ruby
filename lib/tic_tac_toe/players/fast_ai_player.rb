@@ -55,7 +55,7 @@ module TicTacToe
         if board.has_draw?
           return 0
         end
-        value = board.possible_moves.size+1
+        value = board.possible_moves.size + 1
         if board.is_winner?(player)
           value
         else
