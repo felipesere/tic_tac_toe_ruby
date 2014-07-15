@@ -1,0 +1,5 @@
+Notable article:
+* http://lethain.com/getting-started-shoes-os-x/
+* Shoes.p does not seem to work
+
+* store a block or flow in a variable and then attach stack.click { #do something sensible in here... }

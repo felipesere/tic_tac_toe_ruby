@@ -1,0 +1,1 @@
+clear; rspec --color sample_spec.rb
