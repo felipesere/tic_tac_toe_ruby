@@ -1,35 +1,29 @@
-require 'tic_tac_toe/board'
 require 'gui/cell'
 require 'gui/board_view'
+require 'tic_tac_toe/game'
 
 module TTTGui
 
-  def new_game
-    title "Tic-Tac-Toe"
-    @players = [:x, :o]
-    @board = TicTacToe::Board.create_empty
-    @click_controller = Controller.new
-    perform_random_moves(9)
-    draw_cells
-  end
-
-  def draw_cells
-    @pane = stack do
-      app.board_view @board, @click_controller
+  def new_game(a,b, click_controller)
+    @@click_controller = click_controller
+    game = TicTacToe::Game.new(a,b)
+    @@click_controller.game = game
+    stack do
+      title "Tic-Tac-Toe"
+      stack do
+        @@board = app.board_view game.current_board, click_controller
+      end
     end
-  end
-
-  def perform_random_moves(n)
-    n.times do
-      move = @board.possible_moves.sample
-      @board = @board.perform_move(@players.first, move)
-      @players.rotate!
+    @@click_controller.draw do
+      redraw
     end
+    @@click_controller.play
   end
 
-  class Controller
-    def click(val)
-      puts val
+
+  def redraw
+    @@board.clear do
+      app.board_view game.current_board @@click_controller
     end
   end
 end

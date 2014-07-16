@@ -6,7 +6,7 @@ class Cell < Shoes::Widget
 
     element.click do
       element.path = "assets/none.jpg"
-      controller.click("Hello!")
+      controller.click("1")
     end
   end
 end
