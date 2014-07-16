@@ -1,5 +1,6 @@
 require 'tic_tac_toe/players/human_player'
 require 'tic_tac_toe/players/fast_ai_player'
+require 'tic_tac_toe/players/random_player'
 
 module TicTacToe
   module Players
@@ -11,7 +12,8 @@ module TicTacToe
 
       TYPES = {
         :human    => HumanPlayer,
-        :computer => FastAiPlayer
+        :computer => FastAiPlayer,
+        :random => RandomPlayer
       }
 
       def players(types)

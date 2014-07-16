@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'gui/gui'
 require 'tic_tac_toe/players/player_factory'
+require 'tic_tac_toe/board'
 
 class MyApp < Shoes
   include TTTGui
@@ -19,7 +20,7 @@ class MyApp < Shoes
       para "Choose a player combinations"
 
       @handle = list_box  :items => options.keys, 
-                          :choose => options.keys.first
+        :choose => options.keys.first
 
       button "Play!" do
         @@players = @factory.players(options[@handle.text])
@@ -29,7 +30,20 @@ class MyApp < Shoes
   end
 
   def game
-    new_game *@@players, @@io
+    players = [:x, :o]
+    board = TicTacToe::Board.create_empty
+    draw(board)
+    core_loop = animate(2) do
+      if board.possible_moves.empty?
+        core_loop.stop
+      else
+        move = board.possible_moves.sample
+        puts move
+        board = board.perform_move(players.first, move)
+        players.rotate!
+        redraw(board)
+      end
+    end
   end
 
   def retry
@@ -44,7 +58,7 @@ class MyApp < Shoes
     end
     result
   end
-  
+
   class Controller
     def game=(game)
       @game = game
@@ -68,7 +82,7 @@ class MyApp < Shoes
     def read
       @val
     end
-    
+
     def write(msg)
       puts msg
     end
