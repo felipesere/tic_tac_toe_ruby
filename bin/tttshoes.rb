@@ -12,8 +12,8 @@ class MyApp < Shoes
   url '/game',  :game
   url '/end',   :retry
 
-  @@io ||= GUI::Controller.new
-  @@factory  ||= TicTacToe::Players::PlayerFactory.new(io: @@io)
+  @@io = GUI::Controller.new
+  @@factory  = TicTacToe::Players::PlayerFactory.new(io: @@io)
 
   def main_menu
     set_controller(@@io)

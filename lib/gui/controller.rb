@@ -10,6 +10,10 @@ module GUI
       new_val
     end
 
+    def ready?
+      !@val.nil?
+    end
+
     def write(msg)
       puts msg
     end
