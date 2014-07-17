@@ -1,13 +1,14 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'gui/gui'
+require 'gui/board_view'
 require 'gui/controller'
 require 'tic_tac_toe/players/player_factory'
 require 'tic_tac_toe/board'
+require 'gui/main_pane'
+require 'gui/game_pane'
 
 class MyApp < Shoes
-  include TTTGui
-
   url '/',      :main_menu
   url '/game',  :game
   url '/end',   :retry
@@ -16,18 +17,17 @@ class MyApp < Shoes
   @@factory  = TicTacToe::Players::PlayerFactory.new(io: @@io)
 
   def main_menu
-    set_controller(@@io)
-    draw_main_menu @@factory  do
+    MainPane.new(app, @@factory).draw do |chosen_players|
+      @@players = chosen_players
       visit '/game'
     end
   end
 
   def game
-    run_game do
+    GamePane.new(app, @@io).run_game(@@players) do
       visit '/end'
     end
   end
-
 
   def retry
     visit '/'
