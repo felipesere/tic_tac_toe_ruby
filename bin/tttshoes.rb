@@ -30,18 +30,18 @@ class MyApp < Shoes
   end
 
   def game
-    players = [:x, :o]
-    board = TicTacToe::Board.create_empty
-    draw(board)
-    core_loop = animate(2) do
-      if board.possible_moves.empty?
+    set_controller(@@io)
+    game = TicTacToe::Game.new(*@@players)
+    draw(game.current_board)
+    core_loop = animate(10) do  
+      if game.is_finished?
         core_loop.stop
+        visit '/end'
       else
-        move = board.possible_moves.sample
-        puts move
-        board = board.perform_move(players.first, move)
-        players.rotate!
-        redraw(board)
+        if game.ready?
+          game.tick
+        end
+        redraw(game.current_board)
       end
     end
   end
@@ -60,27 +60,14 @@ class MyApp < Shoes
   end
 
   class Controller
-    def game=(game)
-      @game = game
-    end
-
-    def draw(&blk)
-      @draw = blk
-    end
-
-    def play
-      if @val
-        @game.tick
-        blk.call
-      end
-    end
-
     def click(val)
       @val = val
     end
 
     def read
-      @val
+      new_val = @val
+      @val = nil
+      new_val
     end
 
     def write(msg)

@@ -18,6 +18,10 @@ module TicTacToe
         board.perform_move(@name, move)
       end
 
+      def ready?
+        true
+      end
+
       def select_move(board)
         best_move = nil
         best_score = -Float::INFINITY

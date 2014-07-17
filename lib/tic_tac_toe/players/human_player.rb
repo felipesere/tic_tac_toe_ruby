@@ -13,13 +13,19 @@ module TicTacToe
 
       def perform_move(board)
         moves = board.possible_moves
-        value = @io.read.to_i
+        value = @input
+        puts value
         if moves.include?(value)
           board.perform_move(@name, value)
         else
           @io. write "invalid input: #{value}"
           perform_move(board)
         end
+      end
+      
+      def ready?
+        @input = @io.read
+        !@input.nil?
       end
     end
   end

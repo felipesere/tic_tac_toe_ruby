@@ -1,12 +1,13 @@
 class Cell < Shoes::Widget
-  def initialize(marker, controller)
-    mark = marker.nil? ? :none : marker
-
-    element =  image "assets/#{mark}.jpg"
-
-    element.click do
-      element.path = "assets/none.jpg"
-      controller.click("1")
+  def initialize(marker, index , controller)
+    
+    if marker.nil?
+      element =  image "assets/none.jpg"
+      element.click do
+        controller.click(index)
+      end
+    else
+      image "assets/#{marker}.jpg"
     end
   end
 end

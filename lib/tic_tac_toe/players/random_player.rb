@@ -14,6 +14,10 @@ module TicTacToe
         move = board.possible_moves.sample
         board.perform_move(@name, move)
       end
+
+      def ready?
+        true
+      end
     end
   end
 end
