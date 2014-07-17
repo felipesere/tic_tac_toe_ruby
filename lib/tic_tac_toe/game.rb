@@ -10,6 +10,10 @@ module TicTacToe
       @current_board = Board.create_empty
     end
 
+    def ready?
+      @players.first.ready?
+    end
+
     def is_finished?
       @current_board.is_finished? 
     end
