@@ -14,7 +14,6 @@ module TicTacToe
       def perform_move(board)
         moves = board.possible_moves
         value = @input
-        puts value
         if moves.include?(value)
           board.perform_move(@name, value)
         else
