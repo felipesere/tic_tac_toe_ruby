@@ -13,8 +13,7 @@ module TicTacToe
 
       def perform_move(board)
         moves = board.possible_moves
-        value = @input
-        puts value
+        value = @io.read
         if moves.include?(value)
           board.perform_move(@name, value)
         else
@@ -24,8 +23,7 @@ module TicTacToe
       end
       
       def ready?
-        @input = @io.read
-        !@input.nil?
+        @io.ready?
       end
     end
   end
