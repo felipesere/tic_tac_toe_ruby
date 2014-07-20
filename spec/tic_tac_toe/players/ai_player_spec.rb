@@ -30,14 +30,6 @@ describe TicTacToe::Players::AiPlayer do
       result = player.perform_move(direct_defense_board)
       expect(result.marked?(1, 2)).to be true
     end
-
-    xcontext 'set up fork where possible' do
-      it 'marks the middle row on the left to fork' do
-        board = TicTacToe::Board.create [[:x, :o, nil ], [nil, :x, nil], [nil, nil,:o]]
-        result = player.perform_move(board)
-        expect(result.marked?(1, 0)).to be true
-      end
-    end
   end
 
   context '#value_of_move' do

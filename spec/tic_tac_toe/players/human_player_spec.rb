@@ -7,6 +7,16 @@ describe TicTacToe::Players::HumanPlayer do
   let(:human_input) { TicTacToe::UI::FakeIO.new }
   let(:player) { TicTacToe::Players::HumanPlayer.new(:x, {io: human_input}) }
 
+  context "readiness to make a move" do
+    it "is ready when @io is ready" do
+      human_input.ready!
+      expect(player.ready?).to eq true
+    end
+    it "is not ready when @io is not ready" do
+      human_input.not_ready!
+      expect(player.ready?).to eq false
+    end
+  end
   it "markes the right place without offset" do
     human_input.chooses(1)
     new_board = player.perform_move(board)

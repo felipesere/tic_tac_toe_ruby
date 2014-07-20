@@ -7,9 +7,16 @@ describe TicTacToe::Game do
   let(:interface)     { TicTacToe::UI::FakeInterface.new }
   let(:first_player)  { ScriptablePlayer.new(:x, [1,2,3]) }
   let(:second_player) { ScriptablePlayer.new(:o, [4,5]) }
-  
+  let(:game) {TicTacToe::Game.new( first_player, second_player)}
+
+  context '#ready?' do
+    it "is ready when the first player is ready" do
+      first_player.ready!
+      expect(game.ready?).to be true
+    end
+  end
   context "#is_finished?" do
-    let(:game) {TicTacToe::Game.new( first_player, second_player)}
+    
 
     it "knows if the game is not finished" do
       expect(game.is_finished?).to be false
@@ -43,6 +50,14 @@ describe TicTacToe::Game do
     def initialize(name, moves)
       @name = name
       @moves = moves
+    end
+
+    def ready!
+      @ready = true
+    end
+
+    def ready?
+      @ready
     end
 
     def perform_move(board)

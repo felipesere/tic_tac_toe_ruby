@@ -8,6 +8,9 @@ describe TicTacToe::Players::FastAiPlayer do
   let(:board)      { TicTacToe::Board.create_empty }
   let(:board_size) { board.possible_moves.size }
 
+  it "is always ready to make a move" do
+    expect(player.ready?).to be true
+  end
   context '#perform_move' do
     it 'should perform a single move' do
       new_board = player.perform_move(board)

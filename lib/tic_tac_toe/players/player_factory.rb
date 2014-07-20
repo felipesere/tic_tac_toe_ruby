@@ -17,10 +17,7 @@ module TicTacToe
       }
 
       def players(types)
-        [
-          player(type: types[0], name: :x),
-          player(type: types[1], name: :o)
-        ]
+        [ player(type: types[0], name: :x),  player(type: types[1], name: :o) ]
       end
 
       def player(params)

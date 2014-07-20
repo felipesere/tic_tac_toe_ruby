@@ -6,7 +6,8 @@ describe TicTacToe::Players::PlayerFactory do
 
   {
     :human    => TicTacToe::Players::HumanPlayer,
-    :computer => TicTacToe::Players::FastAiPlayer
+    :computer => TicTacToe::Players::FastAiPlayer,
+    :random   => TicTacToe::Players::RandomPlayer
   }.each do |type, klass|
     it "creates a #{type} player named x" do
       result = factory.player(type: type, name: :x)
@@ -15,10 +16,6 @@ describe TicTacToe::Players::PlayerFactory do
     end
   end
 
-  it "announces the types it supportes" do
-    expect(factory.types).to eq [:human, :computer]
-  end
-  
   it "create the proper permutations" do
     expect(factory.player_combinations).to include([:human,:human], [:human,:computer],[:computer, :human],[:computer,:computer])
   end

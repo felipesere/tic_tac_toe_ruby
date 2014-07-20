@@ -7,6 +7,7 @@ module TicTacToe
       
       def rewind
         @messages = []
+        not_ready!
       end
 
       def write(message)
@@ -20,6 +21,18 @@ module TicTacToe
 
       def string
         @messages.join
+      end
+
+      def ready!
+        @ready = true
+      end
+
+      def not_ready!
+        @ready = false
+      end
+
+      def ready?
+        @ready
       end
     end
   end

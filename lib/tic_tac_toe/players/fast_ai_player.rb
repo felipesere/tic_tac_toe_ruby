@@ -1,7 +1,7 @@
 require 'tic_tac_toe/board'
 require 'pp'
 
-# see: http://www.iis.sinica.edu.tw/~tshsu/tcg2012/slides/slide7.pd,
+# see: http://www.iis.sinica.edu.tw/~tshsu/tcg2012/slides/slide7.pdf
 module TicTacToe
   module Players
     class FastAiPlayer
