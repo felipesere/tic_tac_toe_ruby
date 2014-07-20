@@ -14,7 +14,7 @@ describe TicTacToe::Players::AiPlayer do
     end
 
     let(:direct_win_board) do
-      TicTacToe::Board.create [[:x, :x, nil], [nil, nil, nil], [nil, nil, nil]]
+      TicTacToe::Board.new [[:x, :x, nil], [nil, nil, nil], [nil, nil, nil]]
     end
 
     it 'should pic the eassiest direct win' do
@@ -23,7 +23,7 @@ describe TicTacToe::Players::AiPlayer do
     end
 
     let(:direct_defense_board) do
-      TicTacToe::Board.create [[nil, nil, nil], [:o, :o, nil], [nil, nil, nil]]
+      TicTacToe::Board.new [[nil, nil, nil], [:o, :o, nil], [nil, nil, nil]]
     end
 
     it 'should block if necessary' do
@@ -34,25 +34,25 @@ describe TicTacToe::Players::AiPlayer do
 
   context '#value_of_move' do
     it 'scores positive if it wins' do
-      board = TicTacToe::Board.create [[:x, :x,  nil], [nil, nil, nil], [nil, nil, nil]]
+      board = TicTacToe::Board.new [[:x, :x,  nil], [nil, nil, nil], [nil, nil, nil]]
       move = 3
       expect(player.value_of_move(board, move)).to be > 0
     end
 
     it 'scores negative if x loses' do
-      board = TicTacToe::Board.create [[:o, :o, nil], [nil, nil, nil], [nil, nil, nil]]
+      board = TicTacToe::Board.new [[:o, :o, nil], [nil, nil, nil], [nil, nil, nil]]
       move = 3
       expect(player.value_of_move(board, move)).to be < 0
     end
 
     it 'scores 0 if there is a draw' do
-      board = TicTacToe::Board.create [[:o, :o, :x], [:x, :x, :o], [:o, :x, nil]]
+      board = TicTacToe::Board.new [[:o, :o, :x], [:x, :x, :o], [:o, :x, nil]]
       move = 9
       expect(player.value_of_move(board, move)).to eq 0
     end
 
     it 'scores negative if it is one move away from a loss' do
-      board = TicTacToe::Board.create [[:o, :o, nil], 
+      board = TicTacToe::Board.new [[:o, :o, nil], 
                                        [:o, :x, :x],
                                        [nil, :x, :o]]
       move = 3

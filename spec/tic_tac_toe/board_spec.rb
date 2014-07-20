@@ -3,7 +3,7 @@ require 'tic_tac_toe/board'
 
 describe TicTacToe::Board do
   let(:board) { TicTacToe::Board.create_empty }
-  let(:drawn_board) { board = TicTacToe::Board.create [[:x, :x, :o],
+  let(:drawn_board) { board = TicTacToe::Board.new [[:x, :x, :o],
                                                        [:o, :o, :x], 
                                                        [:x, :o, :x]] }
 
@@ -44,14 +44,14 @@ describe TicTacToe::Board do
   context "#has_winner" do
   
     it "has no winner" do
-      board = TicTacToe::Board.create [[ :x , :x , nil ],
+      board = TicTacToe::Board.new [[ :x , :x , nil ],
                                        [ nil, nil, nil ],
                                        [ nil, nil, nil ]]
       expect(board.has_winner?).to eq false
     end
     
     it "has winner for three horizontal" do
-      board = TicTacToe::Board.create [[ :x , :x , :x ],
+      board = TicTacToe::Board.new [[ :x , :x , :x ],
                                        [ nil, nil, nil ],
                                        [ nil, nil, nil ]]
       expect(board.has_winner?).to eq true
@@ -62,21 +62,21 @@ describe TicTacToe::Board do
   
 
     it "has winner for three vertical" do
-      board = TicTacToe::Board.create [[ :x , nil , nil ],
+      board = TicTacToe::Board.new [[ :x , nil , nil ],
                                        [ :x, nil, nil ],
                                        [ :x, nil, nil ]]
       expect(board.has_winner?).to eq true
     end
 
     it "has winner for first diagonal" do
-      board = TicTacToe::Board.create [[ :x , nil , nil ],
+      board = TicTacToe::Board.new [[ :x , nil , nil ],
                                        [ nil, :x, nil ],
                                        [ nil, nil, :x ]]
       expect(board.has_winner?).to eq true
     end
 
     it "has winner for second diagonal" do
-      board = TicTacToe::Board.create [[ nil , nil , :x],
+      board = TicTacToe::Board.new [[ nil , nil , :x],
                                        [ nil , :x,  nil ],
                                        [ :x  , nil, nil ]]
       expect(board.has_winner?).to eq true

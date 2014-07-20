@@ -11,10 +11,6 @@ module TicTacToe
       Board.new(Array.new(SIZE) { Array.new(SIZE) })
     end
 
-    def self.create(board)
-      Board.new(board)
-    end
-
     def possible_moves
       @moves ||= elements.each.with_index(1).map do |element, index| 
         if element.nil?
@@ -24,7 +20,7 @@ module TicTacToe
     end
 
     def perform_move(name, move)
-      raise "Illegal move #{move}" unless possible_moves.include? move
+      raise InvalidMoveError < StandardError unless possible_moves.include? move
       new_board = elements.dup
       index = move-1
       new_board[index] = name.to_sym
@@ -52,9 +48,7 @@ module TicTacToe
     end
 
     def winner
-      raise "There is no winner yet" unless has_winner?
-      winner = lines.find { |line| line.uniq.size == 1 }
-      winner.uniq.first
+      winner = lines.find { |line| line.uniq.size == 1 }.uniq.first
     end
 
     def is_winner?(name)

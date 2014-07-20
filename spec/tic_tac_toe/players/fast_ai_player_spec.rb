@@ -21,7 +21,7 @@ describe TicTacToe::Players::FastAiPlayer do
           end
 
     it 'should pic the easiest direct win' do
-      board = TicTacToe::Board.create [[nil , nil , nil]  ,
+      board = TicTacToe::Board.new [[nil , nil , nil]  ,
                                        [:x  , :x  , nil]  ,
                                        [nil , nil , nil]]
 
@@ -30,7 +30,7 @@ describe TicTacToe::Players::FastAiPlayer do
     end
 
     it 'should block if necessary' do
-      board = TicTacToe::Board.create [[nil , nil , nil]  ,
+      board = TicTacToe::Board.new [[nil , nil , nil]  ,
                                        [:o  , :o  , nil]  ,
                                        [nil , nil , nil]]
       result = player.perform_move(board)
@@ -39,7 +39,7 @@ describe TicTacToe::Players::FastAiPlayer do
 
     context 'set up fork where possible' do
       it 'marks the middle row on the left to fork' do
-        board = TicTacToe::Board.create [[:x  , :o  , nil ] ,
+        board = TicTacToe::Board.new [[:x  , :o  , nil ] ,
                                          [nil , :x  , nil]  ,
                                          [nil , nil , :o]]
         result = player.select_move(board)
@@ -49,7 +49,7 @@ describe TicTacToe::Players::FastAiPlayer do
     end
 
     it "defends against a corner" do
-      board = TicTacToe::Board.create [[:o  , nil , nil]  ,
+      board = TicTacToe::Board.new [[:o  , nil , nil]  ,
                                        [nil , nil , nil]  ,
                                        [nil , nil , nil]]
       result = player.select_move(board)
