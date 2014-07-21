@@ -16,7 +16,7 @@ module TicTacToe
       end
 
       def read
-        @input.shift
+        @input.shift.to_s
       end
 
       def string

@@ -13,7 +13,7 @@ module TicTacToe
 
       def perform_move(board)
         moves = board.possible_moves
-        value = @io.read
+        value = @io.read.to_i
         if moves.include?(value)
           board.perform_move(@name, value)
         else
