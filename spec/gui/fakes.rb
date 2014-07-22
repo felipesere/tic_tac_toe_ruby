@@ -1,50 +1,42 @@
 module GUI
   class FakeApp
-    attr_reader :stacks
     attr_reader :buttons
-    attr_reader :current_stack
-
+    attr_reader :stored_list_boxes
+    def reset
+      @buttons = {}
+      @stored_list_boxes = []
+    end
     def click_on(name)
       buttons.fetch(name).call
     end
+
     def stack(params)
-      @current_stack = FakeStack.new
-      @stacks ||= []
-      @stacks << current_stack
-      yield
-      @current_stack = stacks[-1]
+      yield if block_given?
     end
 
     def para(message)
-      current_stack[:para] = 1
     end
 
     def button(name, &block)
-      current_stack[:button] = 1
       if block_given?
         @buttons ||= {}
         buttons[name] = block
       end
     end
     
+    def list_boxes
+      stored_list_boxes
+    end
+
     def list_box(*args)
       box = FakeListBox.new(*args)
-      current_stack[:list_box] = box
+      stored_list_boxes ||= []
+      @stored_list_boxes << box
       box
     end
   end
   
   class FakeStack
-    attr_reader :contents
-    def initialize
-      @contents = {}
-    end
-    def []=(key, value)
-      contents[key] = value
-    end
-    def [](key)
-      contents.fetch(key)
-    end
   end
 
   class FakeListBox

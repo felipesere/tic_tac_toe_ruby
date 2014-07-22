@@ -1,16 +1,18 @@
 module GUI
   class MainPane
     attr_reader :app
-    def initialize(app, factory)
+    def initialize(app, player_combinations)
+      @player_combinations = player_combinations
       @app = app
     end
 
     def draw(&after_finish)
+      items = convert_players_for_ui(@player_combinations)
       app.stack margin: 10 do
         app.para "Hello"
-        app.list_box :items => [], :choose => "Random text" 
+        handle = app.list_box :items => items.keys, :choose => "Random text" 
         app.button "Play!" do
-          after_finish.call [:a, :b]
+          after_finish.call items[handle.text]
         end
       end
     end
@@ -18,7 +20,8 @@ module GUI
     def convert_players_for_ui(combinations)
       result = {}
       combinations.each do |combo| 
-        result[combo] = combo.join(" vs. ") 
+        line = combo.join(" vs. ")
+        result[line] = combo
       end
       result
     end
