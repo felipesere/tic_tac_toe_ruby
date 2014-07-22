@@ -10,7 +10,7 @@ module GUI
       items = convert_players_for_ui(@player_combinations)
       app.stack margin: 10 do
         app.para "Hello"
-        handle = app.list_box :items => items.keys, :choose => "Random text" 
+        handle = app.list_box :items => items.keys, :choose => items.keys.first 
         app.button "Play!" do
           after_finish.call items[handle.text]
         end
