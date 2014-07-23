@@ -1,5 +1,6 @@
 require 'gui/cell'
 require 'gui/fakes'
+require 'spec_helper'
 
 describe GUI::Cell do
 

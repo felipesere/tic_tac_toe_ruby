@@ -1,5 +1,6 @@
 require 'gui/board'
 require 'gui/fakes'
+require 'spec_helper'
 require 'tic_tac_toe/board'
 
 describe GUI::Board do

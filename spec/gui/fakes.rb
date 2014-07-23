@@ -10,6 +10,7 @@ module GUI
       @buttons = {}
       @images = []
       @stored_list_boxes = []
+      @animation = nil
     end
 
     def click_on(name)
@@ -17,7 +18,9 @@ module GUI
     end
 
     def stack(params = {})
+      stack = FakeStack.new
       yield if block_given?
+      stack
     end
 
     def flow(params = {})
@@ -44,7 +47,7 @@ module GUI
         buttons[name] = block
       end
     end
-    
+
     def list_boxes
       stored_list_boxes
     end
@@ -55,8 +58,22 @@ module GUI
       @stored_list_boxes << box
       box
     end
+
+    def animate(iter, &block)
+      @animation = FakeAnimation.new(&block) 
+      @animation
+    end
+
+    def animation
+      @animation
+    end
   end
-  
+
+  class FakeStack
+   def clear
+     yield
+   end
+  end
   class FakeListBox
     attr_reader :items
     def initialize(args)
@@ -81,7 +98,7 @@ module GUI
       @block.call if @block
     end
   end
-  
+
   class FakeClicker
     def initialize
       @clicked = false
@@ -97,6 +114,24 @@ module GUI
     end
     def clicked?
       @clicked
+    end
+  end
+
+  class FakeAnimation
+    attr_reader :block
+    def initialize(&block)
+      @block = block
+    end
+    def run!
+      block.call unless stopped?
+    end
+    
+    def stop
+      @stop = true
+    end
+
+    def stopped?
+      @stop
     end
   end
 end
