@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'gui/main_pane'
+require 'gui/cell'
 require 'tic_tac_toe/players/player_factory'
 
 Shoes.app do
@@ -7,4 +8,5 @@ Shoes.app do
   GUI::MainPane.new(app, factory.player_combinations ).draw do |players|
     puts players
   end
+  GUI::Cell.new(app, :x, nil)
 end
