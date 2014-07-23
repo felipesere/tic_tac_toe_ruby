@@ -16,7 +16,11 @@ module GUI
       buttons.fetch(name).call
     end
 
-    def stack(params)
+    def stack(params = {})
+      yield if block_given?
+    end
+
+    def flow(params = {})
       yield if block_given?
     end
 
