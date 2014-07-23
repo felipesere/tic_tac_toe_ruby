@@ -1,8 +1,12 @@
+require 'gui/board'
 module GUI
   class GamePane
     attr_reader :app
-    def initialize(app)
+    attr_reader :click_controller
+
+    def initialize(app, click_controller)
       @app = app
+      @click_controller = click_controller
       @main = app.stack 
     end
   
@@ -35,7 +39,7 @@ module GUI
 
     def draw(board)
       @main.clear do
-        Board.new(app, board, nil)
+        Board.new(app, board, click_controller)
       end
     end
   end

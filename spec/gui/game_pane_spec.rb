@@ -4,7 +4,7 @@ require 'gui/fakes'
 
 describe GUI::GamePane do
   let(:fake_shoes) { fake_shoes = GUI::FakeApp.new  }
-  let(:pane) { pane = GUI::GamePane.new(fake_shoes) }
+  let(:pane) { pane = GUI::GamePane.new(fake_shoes, nil) }
 
   it "calls a block once the game is finsihed" do
     inner_block_called = false
@@ -24,7 +24,7 @@ describe GUI::GamePane do
   
   it "given the game is ready, then it will tick forward" do
      game = FakeGame.new(runs: 1, ready: true)
-     pane.proceed(game)  
+     pane.animate(game, nil)  
      expect(game).to be_ticked
   end
 
