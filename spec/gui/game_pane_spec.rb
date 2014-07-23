@@ -21,18 +21,17 @@ describe GUI::GamePane do
     pane.draw(TicTacToe::Board.create_empty)
     expect(fake_shoes.images.size).to eq 9 
   end
-
-  it "redraws the board by clearing it" do
-    empty = TicTacToe::Board.create_empty
-    other = TicTacToe::Board.new [[:x, :o, :x],[nil, nil, nil],[nil, nil, nil]]
-    pane.draw(empty)
-    pane.redraw(other)
-    expect(fake_shoes.images_like(/x/).size).to eq 2
+  
+  it "given the game is ready, then it will tick forward" do
+     game = FakeGame.new(runs: 1, ready: true)
+     pane.proceed(game)  
+     expect(game).to be_ticked
   end
 
   class FakeGame
     def initialize(params)
       @runs = params[:runs] || 0
+      @ready = params[:ready] || false
     end
 
     def is_finished?
@@ -41,6 +40,15 @@ describe GUI::GamePane do
 
     def tick
       @runs -= 1
+      @ticked = true
+    end
+
+    def ticked?
+      @ticked
+    end
+
+    def ready?
+      @ready
     end
 
     def current_board

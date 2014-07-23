@@ -3,6 +3,7 @@ module GUI
     attr_reader :app
     def initialize(app)
       @app = app
+      @main = app.stack 
     end
   
     def play_on(game, &finished_block)
@@ -29,20 +30,13 @@ module GUI
       if game.ready?
         game.tick
       end
-      redraw(game.current_board)
+      draw(game.current_board)
     end
 
     def draw(board)
-      @main = app.stack do
-        Board.new(app, board, nil)
-      end
-    end
-
-    def redraw(board)
       @main.clear do
         Board.new(app, board, nil)
       end
     end
-
   end
 end
