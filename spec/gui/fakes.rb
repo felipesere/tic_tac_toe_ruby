@@ -3,6 +3,9 @@ module GUI
     attr_reader :images 
     attr_reader :buttons
     attr_reader :stored_list_boxes
+    def initialize
+      reset
+    end
     def reset
       @buttons = {}
       @images = []
@@ -26,6 +29,11 @@ module GUI
       @images << image
       image
     end
+
+    def images_like(regex)
+      images.find_all { |image| image.path.match(regex) }
+    end
+
     def button(name, &block)
       if block_given?
         @buttons ||= {}
@@ -67,6 +75,24 @@ module GUI
     end
     def click!
       @block.call if @block
+    end
+  end
+  
+  class FakeClicker
+    def initialize
+      @clicked = false
+    end
+    def click(data = {})
+      @clicked = true
+      @data = data
+    end
+
+    def click_data
+      raise NotYetClicked < StandardError unless clicked?
+      @data
+    end
+    def clicked?
+      @clicked
     end
   end
 end

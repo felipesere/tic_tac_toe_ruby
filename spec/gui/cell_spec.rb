@@ -7,16 +7,16 @@ describe GUI::Cell do
 
   [:x, :o].each do |var|
     context "Cell with #{var} marker" do
-      let(:clicker) { Clicker.new }
+      let(:clicker) { GUI::FakeClicker.new }
 
       it "loads the correct image" do
-        GUI::Cell.new(fake_shoes, var, clicker)
+        GUI::Cell.new(fake_shoes, var, clicker, 1)
         image = fake_shoes.images.first
         expect(image.path).to include "#{var}.jpg"
       end
 
       it "does not react to clicks" do
-        GUI::Cell.new(fake_shoes, var, clicker)
+        GUI::Cell.new(fake_shoes, var, clicker, 1)
         fake_shoes.images.first.click!
         expect(clicker).not_to be_clicked
       end
@@ -24,30 +24,18 @@ describe GUI::Cell do
   end
 
   context "Cell with no marking" do
-    let(:clicker) { clicker = Clicker.new }
+    let(:clicker) { clicker = GUI::FakeClicker.new }
     it "loads the correct image" do
-      GUI::Cell.new(fake_shoes, nil, clicker)
+      GUI::Cell.new(fake_shoes, nil, clicker, 1)
       image = fake_shoes.images.first
       expect(image.path).to include "none.jpg"
     end
     it "allows clicks" do
-      cell = GUI::Cell.new(fake_shoes, nil, clicker)
+      cell = GUI::Cell.new(fake_shoes, nil, clicker, 1)
       fake_shoes.images.first.click!
       expect(clicker).to be_clicked
     end
   end
 
 
-  class Clicker
-    def initialize
-      @clicked = false
-    end
-    def click
-      @clicked = true
-    end
-
-    def clicked?
-      @clicked
-    end
-  end
 end

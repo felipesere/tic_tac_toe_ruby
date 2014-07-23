@@ -8,5 +8,7 @@ Shoes.app do
   GUI::MainPane.new(app, factory.player_combinations ).draw do |players|
     puts players
   end
-  GUI::Cell.new(app, :x, nil)
+  [:x, :o, nil].each do |mark|
+    GUI::Cell.new(app, mark, nil)
+  end 
 end
