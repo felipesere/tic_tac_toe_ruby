@@ -3,6 +3,7 @@ module GUI
     attr_reader :images 
     attr_reader :buttons
     attr_reader :stored_list_boxes
+    attr_reader :messages
     def initialize
       reset
     end
@@ -11,6 +12,7 @@ module GUI
       @images = []
       @stored_list_boxes = []
       @animation = nil
+      @messages = []
     end
 
     def click_on(name)
@@ -27,7 +29,8 @@ module GUI
       yield if block_given?
     end
 
-    def para(message)
+    def para(message, params = {})
+      messages << message
     end
 
     def image(path)

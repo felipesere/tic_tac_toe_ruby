@@ -17,6 +17,12 @@ describe GUI::GamePane do
     expect(inner_block_called).to eq true
   end
 
+  it "yields the last board when the game is finished" do
+    pane.play_on(FakeGame.new(runs: 0)) do |final_board|
+      expect(final_board).not_to be nil
+    end
+    fake_shoes.animation.run!
+  end
   it "draws nine images on the board" do
     pane.draw(TicTacToe::Board.create_empty)
     expect(fake_shoes.images.size).to eq 9 

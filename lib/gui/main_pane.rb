@@ -10,7 +10,7 @@ module GUI
     def draw(&after_finish)
       items = convert_players_for_ui(player_combinations)
       app.stack margin: 10 do
-        app.para "Please select a player combinatio combination"
+        app.para "Please select a player combination"
         handle = app.list_box :items => items.keys, :choose => items.keys.first 
         app.button "Play!" do
           after_finish.call items[handle.text]

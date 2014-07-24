@@ -19,15 +19,15 @@ module GUI
 
     def animate(game, core_loop, &finished_block)
       if game.is_finished?
-        finish(core_loop, &finished_block)
+        finish(core_loop, game, &finished_block)
       else
         proceed(game)
       end
     end
 
-    def finish(core_loop, &finished_block)
+    def finish(core_loop, game, &finished_block)
       core_loop.stop
-      finished_block.call if finished_block
+      finished_block.call(game.current_board) if finished_block
     end
 
     def proceed(game)

@@ -15,7 +15,7 @@ module GUI
     end
 
     def build_board(game_board)
-      app.stack do 
+      app.stack :margin => 10 do 
         game_board.rows.each do |row|
           app.flow width: 270 do
             build_row(row)
