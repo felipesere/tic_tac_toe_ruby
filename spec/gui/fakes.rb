@@ -14,7 +14,7 @@ module GUI
     end
 
     def click_on(name)
-      buttons.fetch(name).call
+      buttons.fetch(name).click
     end
 
     def stack(params = {})
@@ -42,10 +42,8 @@ module GUI
     end
 
     def button(name, &block)
-      if block_given?
-        @buttons ||= {}
-        buttons[name] = block
-      end
+      @buttons ||= {}
+      buttons[name] = FakeButton.new(&block)
     end
 
     def list_boxes
@@ -74,6 +72,17 @@ module GUI
      yield
    end
   end
+
+  class FakeButton
+    def initialize(&block)
+      @block = block
+    end
+
+    def click
+      @block.call if @block
+    end
+  end
+
   class FakeListBox
     attr_reader :items
     def initialize(args)
