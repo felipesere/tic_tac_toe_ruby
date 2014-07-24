@@ -17,6 +17,7 @@ describe TicTacToe::Players::HumanPlayer do
       expect(player.ready?).to eq false
     end
   end
+
   it "markes the right place without offset" do
     human_input.chooses(1)
     new_board = player.perform_move(board)

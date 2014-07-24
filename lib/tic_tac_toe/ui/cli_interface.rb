@@ -33,8 +33,25 @@ module TicTacToe
         clear_screen
         options = @factory.player_combinations 
         print_options(options)
-        choice = @io.read.to_i
-        @factory.players(options[choice])
+        choice = @io.read
+        if is_number(choice) and range(options).include? choice.to_i
+          @factory.players(options[choice.to_i])
+        else
+          get_chosen_players
+        end
+      end
+
+      def is_number(input)
+        begin
+          Integer(input)
+          true
+        rescue ArgumentError
+          false
+        end
+      end
+
+      def range(options)
+        (0..options.size-1).to_a
       end
 
       def clear_screen

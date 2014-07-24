@@ -57,6 +57,7 @@ describe TicTacToe::UI::CliInterface do
   end
 
   context '#get_chosen_players' do
+    before(:each) { fake_io.rewind }
     it "shows a single combination of players" do
       factory = FakePlayerFactory.new(first_player: :a,second_player: :b)
       interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
@@ -64,6 +65,25 @@ describe TicTacToe::UI::CliInterface do
 
       interface.get_chosen_players
       expect(fake_io.string).to match /a vs. b/
+    end
+    
+    context "it denies invalid input" do
+      it "out of range" do
+        factory = FakePlayerFactory.new(first_player: :a,second_player: :b)
+        interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+        fake_io.chooses(99,0)
+        factory.expects([:a, :b])
+        interface.get_chosen_players
+      end
+      
+      it "strings" do
+        factory = FakePlayerFactory.new(combo: [[:a, :b],[:c, :d],[:e, :f]])
+        interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+        fake_io.chooses("abc" ,2)
+        factory.expects([:e, :f]) 
+
+        interface.get_chosen_players
+      end
     end
   end
 
@@ -91,16 +111,26 @@ describe TicTacToe::UI::CliInterface do
   
   class FakePlayerFactory
     def initialize(params)
-      first_player = params.fetch(:first_player)
-      second_player = params.fetch(:second_player)
-      @combo = [first_player, second_player]
+      if params[:combo]
+        @combo = params[:combo]
+      else
+        first_player = params.fetch(:first_player)
+        second_player = params.fetch(:second_player)
+        @combo = [[first_player, second_player]]
+      end
+      @expected = [:a, :b]
     end
 
     def player_combinations
-      [@combo]
+      @combo
     end
   
-    def players(_)
+    def expects(expected)
+      @expected = expected
+    end
+
+    def players(input)
+      raise "invalid player combination: #{input}!" unless input <=> @expected 
     end
   end
 end
