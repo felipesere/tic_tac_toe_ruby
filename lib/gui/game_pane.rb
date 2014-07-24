@@ -12,7 +12,7 @@ module GUI
   
     def play_on(game, &finished_block)
       draw(game.current_board)
-      core_loop = app.animate(10) do
+      core_loop = app.animate(20) do
         animate(game, core_loop, &finished_block)
       end
     end

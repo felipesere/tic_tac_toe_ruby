@@ -9,7 +9,6 @@ module TicTacToe
         @clear = params[:clear] || false 
         @io = params[:io] || IO.new
         @player_combinations = params[:player_combinations] || []
-        raise "should not be using factory!" if params[:factory]
       end
 
       def play_on(game)
@@ -45,7 +44,6 @@ module TicTacToe
       def is_number(input)
         begin
           Integer(input)
-          true
         rescue ArgumentError
           false
         end
@@ -61,28 +59,27 @@ module TicTacToe
 
       def render(board)
         clear_screen
-        printed_board = board.elements.map.each.with_index(1) do |cell, index|
-          result = print_element(cell, index)
-          result += "\n" if index % 3 == 0
-          result
-        end.join
-        @io.write printed_board
+        rendered_board = render_board(board)
+        @io.write rendered_board
+      end
+
+      def render_board(board)
+        board.elements.collect.each.with_index(1) do |cell, index|
+          print_element(cell, index)
+        end.each_slice(3).to_a.collect { |row| row.join}.join("\n")
       end
 
       def print_element(cell, index)
-        if cell.nil?
-          "[#{index}]"
-        else
-          color_cell(cell)
-        end
+        content = !cell.nil? ? render_symbol(cell) : index.to_s
+        "[#{content}]"
       end
 
-      def color_cell(cell)
-        result = "[#{cell}]"
+      def render_symbol(cell)
+        content = cell.to_s
         if @colors
-          result = cell == :x ? result.red : result.blue
+          return cell == :x ? content.red : content.blue
         end
-        result
+        content
       end
 
       def result(board)

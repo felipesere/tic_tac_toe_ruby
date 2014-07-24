@@ -25,16 +25,16 @@ describe TicTacToe::UI::CliInterface do
       expect(fake_io.string.chomp).to eq("[x][2][3]\n[4][5][6]\n[7][8][9]")
     end
 
-    context '#color_cell' do
+    context '#render_symbol' do
       let(:color_interface) { TicTacToe::UI::CliInterface.new(colors: true, io: fake_io) }
       it 'draws the :x red' do
         RED="\e[0;31;49m"
-        expect(color_interface.color_cell(:x)).to include RED
+        expect(color_interface.render_symbol(:x)).to include RED
       end
 
       it 'draws the :o blue' do
         BLUE="\e[0;34;49m"
-        expect(color_interface.color_cell(:o)).to include BLUE
+        expect(color_interface.render_symbol(:o)).to include BLUE
       end
     end
   end

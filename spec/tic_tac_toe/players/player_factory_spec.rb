@@ -1,4 +1,7 @@
 require 'tic_tac_toe/players/player_factory'
+require 'tic_tac_toe/players/human_player'
+require 'tic_tac_toe/players/fast_ai_player'
+require 'tic_tac_toe/players/random_player'
 
 describe TicTacToe::Players::PlayerFactory do
 
@@ -14,9 +17,5 @@ describe TicTacToe::Players::PlayerFactory do
       expect(result).to be_a(klass)
       expect(result.name).to eq :x
     end
-  end
-
-  it "create the proper permutations" do
-    expect(factory.player_combinations).to include([:human,:human], [:human,:computer],[:computer, :human],[:computer,:computer])
   end
 end

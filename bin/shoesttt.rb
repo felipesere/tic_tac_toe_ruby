@@ -3,10 +3,9 @@ require 'gui/game_pane'
 require 'gui/end_pane'
 require 'gui/main_pane'
 require 'gui/click_controller'
-require 'tic_tac_toe/players/player_factory'
-require 'tic_tac_toe/board'
 require 'tic_tac_toe/game'
-require 'spec/gui/fakes'
+require 'tic_tac_toe/players/player_factory'
+require 'tic_tac_toe/players/player_types'
 
 class MyShoes < Shoes
 
@@ -17,7 +16,7 @@ class MyShoes < Shoes
   def main_menu
     @@click_controller = GUI::ClickController.new
     factory = TicTacToe::Players::PlayerFactory.new({io: @@click_controller})
-    GUI::MainPane.new(app, factory.player_combinations).draw do |players|
+    GUI::MainPane.new(app, TicTacToe::Players::PlayerTypes.player_combinations).draw do |players|
       @@players = factory.players(players)
       visit '/game'
     end
