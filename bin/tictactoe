@@ -11,10 +11,10 @@ module TicTacToe
   io = UI::IO.new(input: $stdin, output: $stdout)
   factory = Players::PlayerFactory.new(io: io)
   
-  interface = UI::CliInterface.new(io: io, colors: true, clear: true, factory: factory)
+  interface = UI::CliInterface.new(io: io, colors: true, clear: true, player_combinations: factory.player_combinations)
   
-  players = interface.get_chosen_players
+  players_types = interface.get_chosen_players
 
-  game = Game.new(*players)
+  game = Game.new(*factory.players(players_types))
   interface.play_on(game)
 end

@@ -59,8 +59,7 @@ describe TicTacToe::UI::CliInterface do
   context '#get_chosen_players' do
     before(:each) { fake_io.rewind }
     it "shows a single combination of players" do
-      factory = FakePlayerFactory.new(first_player: :a,second_player: :b)
-      interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+      interface = TicTacToe::UI::CliInterface.new(io: fake_io, player_combinations: [[:a, :b]])
       fake_io.chooses(0)
 
       interface.get_chosen_players
@@ -69,20 +68,16 @@ describe TicTacToe::UI::CliInterface do
     
     context "it denies invalid input" do
       it "out of range" do
-        factory = FakePlayerFactory.new(first_player: :a,second_player: :b)
-        interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+        interface = TicTacToe::UI::CliInterface.new(io: fake_io, player_combinations: [[:a, :b]])
         fake_io.chooses(99,0)
-        factory.expects([:a, :b])
-        interface.get_chosen_players
+        expect(interface.get_chosen_players).to include :a, :b
       end
       
       it "strings" do
-        factory = FakePlayerFactory.new(combo: [[:a, :b],[:c, :d],[:e, :f]])
-        interface = TicTacToe::UI::CliInterface.new(io: fake_io, factory: factory)
+        interface = TicTacToe::UI::CliInterface.new(io: fake_io, player_combinations: [[:a, :b],[:c, :d],[:e, :f]])
         fake_io.chooses("abc" ,2)
-        factory.expects([:e, :f]) 
 
-        interface.get_chosen_players
+        expect(interface.get_chosen_players).to include :e, :f
       end
     end
   end
@@ -108,31 +103,4 @@ describe TicTacToe::UI::CliInterface do
       expect(fake_io.string).to include "There was a draw" 
     end
   end
-  
-  class FakePlayerFactory
-    def initialize(params)
-      if params[:combo]
-        @combo = params[:combo]
-      else
-        first_player = params.fetch(:first_player)
-        second_player = params.fetch(:second_player)
-        @combo = [[first_player, second_player]]
-      end
-      @expected = [:a, :b]
-    end
-
-    def player_combinations
-      @combo
-    end
-  
-    def expects(expected)
-      @expected = expected
-    end
-
-    def players(input)
-      raise "invalid player combination: #{input}!" unless input <=> @expected 
-    end
-  end
 end
-
-

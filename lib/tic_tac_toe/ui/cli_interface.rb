@@ -8,7 +8,8 @@ module TicTacToe
         @colors = params[:colors] || false
         @clear = params[:clear] || false 
         @io = params[:io] || IO.new
-        @factory = params[:factory] || nil
+        @player_combinations = params[:player_combinations] || []
+        raise "should not be using factory!" if params[:factory]
       end
 
       def play_on(game)
@@ -31,11 +32,11 @@ module TicTacToe
 
       def get_chosen_players
         clear_screen
-        options = @factory.player_combinations 
+        options = @player_combinations
         print_options(options)
         choice = @io.read
         if is_number(choice) and range(options).include? choice.to_i
-          @factory.players(options[choice.to_i])
+          options[choice.to_i]
         else
           get_chosen_players
         end
