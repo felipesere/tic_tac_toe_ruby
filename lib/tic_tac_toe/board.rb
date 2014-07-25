@@ -51,7 +51,7 @@ module TicTacToe
       if has_draw?
         0
       else
-        10.0 / possible_moves.size
+        possible_moves.size + 1
       end
     end
 

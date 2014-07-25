@@ -32,11 +32,15 @@ class MyShoes < Shoes
 
   def end_menu
     GUI::EndPane.new(app, @@final_board) do |choice|
-      if choice == :replay
-        visit '/game'
-      else
-        visit '/'
-      end
+      proceed_to(choice)
+    end
+  end
+
+  def proceed_to(choice)
+    if choice == :replay
+      visit '/game'
+    else
+      visit '/'
     end
   end
          

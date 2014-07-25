@@ -7,6 +7,7 @@ module TicTacToe
     class FastAiPlayer
       attr_reader :players
       attr_reader :name
+
       def initialize(name, params)
         opponent_mark = name == :x ? :o : :x 
         @players = [name , opponent_mark ]
@@ -39,27 +40,26 @@ module TicTacToe
         if board.is_finished?
           value_of_board(board, players.first)
         else
-          best_score = -Float::INFINITY 
-          board.possible_moves.each do |move|  
-            new_board = board.perform_move(players.first, move)
-            score = -alpha_beta(new_board, -beta, -alpha, players.rotate)
-            best_score = [score, best_score].max
-            alpha = [alpha, best_score].max
-            break if alpha >= beta
-          end
-          best_score
+          calculate_best_score(board, alpha, beta, players)
         end
       end
 
-      def value_of_board(board, player)
-        if board.has_draw?
-          return 0
+      def calculate_best_score(board, alpha, beta, players)
+        score = alpha
+        board.possible_moves.each do |move|  
+          new_board = board.perform_move(players.first, move)
+          score = -alpha_beta(new_board, -beta, -alpha, players.rotate)
+          alpha = [alpha, score].max
+          break if alpha >= beta
         end
-        value = board.possible_moves.size + 1
+        alpha
+      end
+
+      def value_of_board(board, player)
         if board.is_winner?(player)
-          value
+          board.value
         else
-          -value
+          -board.value
         end
       end
     end
