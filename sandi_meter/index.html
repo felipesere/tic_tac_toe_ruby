@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sandi Chart</title>
+  <link rel="stylesheet" href="assets/normalize.css">
+  <link rel="stylesheet" href="assets/morris.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/jquery.js"></script>
+  <script src="assets/chart.js"></script>
+  <script src="assets/script.js"></script>
+  <script type="text/javascript">
+    var data = [{"r10":27,"r11":1,"r20":134,"r21":19,"r30":154,"r31":0,"r40":1,"r41":0,"timestamp":1406238097000},{"r10":28,"r11":0,"r20":137,"r21":17,"r30":156,"r31":0,"r40":1,"r41":0,"timestamp":1406241098000},{"r10":27,"r11":1,"r20":139,"r21":17,"r30":158,"r31":0,"r40":1,"r41":0,"timestamp":1406274739000},{"r10":30,"r11":0,"r20":140,"r21":18,"r30":161,"r31":0,"r40":1,"r41":0,"timestamp":1406277231000},{"r10":30,"r11":0,"r20":141,"r21":17,"r30":160,"r31":0,"r40":1,"r41":0,"timestamp":1406277791000},{"r10":29,"r11":0,"r20":138,"r21":17,"r30":161,"r31":0,"r40":1,"r41":0,"timestamp":1406278328000},{"r10":30,"r11":0,"r20":141,"r21":17,"r30":160,"r31":0,"r40":1,"r41":0,"timestamp":1406278758000},{"r10":30,"r11":0,"r20":141,"r21":16,"r30":159,"r31":0,"r40":1,"r41":0,"timestamp":1406279000000},{"r10":30,"r11":0,"r20":143,"r21":15,"r30":160,"r31":0,"r40":1,"r41":0,"timestamp":1406279235000},{"r10":30,"r11":0,"r20":143,"r21":15,"r30":160,"r31":0,"r40":1,"r41":0,"timestamp":1406280266000},{"r10":30,"r11":0,"r20":151,"r21":11,"r30":159,"r31":0,"r40":1,"r41":0,"timestamp":1406281672000},{"r10":30,"r11":0,"r20":154,"r21":9,"r30":160,"r31":0,"r40":1,"r41":0,"timestamp":1406283174000},{"r10":30,"r11":0,"r20":158,"r21":8,"r30":163,"r31":0,"r40":1,"r41":0,"timestamp":1406284063000},{"r10":30,"r11":0,"r20":164,"r21":6,"r30":165,"r31":0,"r40":1,"r41":0,"timestamp":1406284964000},{"r10":30,"r11":0,"r20":164,"r21":6,"r30":165,"r31":0,"r40":1,"r41":0,"timestamp":1406288922000},{"r10":30,"r11":0,"r20":165,"r21":5,"r30":164,"r31":0,"r40":1,"r41":0,"timestamp":1406290210000},{"r10":30,"r11":0,"r20":166,"r21":5,"r30":165,"r31":0,"r40":1,"r41":0,"timestamp":1406291997000},{"r10":30,"r11":0,"r20":168,"r21":4,"r30":166,"r31":0,"r40":1,"r41":0,"timestamp":1406292787000},{"r10":30,"r11":0,"r20":168,"r21":4,"r30":165,"r31":0,"r40":1,"r41":0,"timestamp":1406296026000}];
+  </script>
+</head>
+<body>
+  <a href="https://github.com/makaroni4/sandi_meter"><img style="position: absolute; top: 0; left: 0; border: 0;" src="assets/forkme.png" alt="Fork me on GitHub"></a>
+  <div class="container">
+    <header>
+      <h1 class="main-title">Sandi Metz rules</h1>
+      <h2 class="main-description js-report-date"></h2>
+    </header>
+    <section class="pie-charts">
+      <div id="pie1" class="pie-charts-item"></div>
+      <div id="pie2" class="pie-charts-item"></div>
+      <div id="pie3" class="pie-charts-item"></div>
+      <div id="pie4" class="pie-charts-item"></div>
+      <div class="clearfix"></div>
+    </section>
+    <nav class="main-menu">
+      <a href="#" class="main-menu-active js-menu-item" data-rel=".js-charts">Rules</a>
+      <a href="#" class="js-menu-item" data-rel=".js-charts-percentage">Rules %</a>
+      <a href="#" class="js-menu-item" data-rel=".js-progress">Progress %</a>
+      <a href="#" class="js-menu-item" data-rel=".js-details">Details</a>
+    </nav>
+    <section class="plot-charts js-charts js-tab-item">
+      <div class="plot-charts-item">
+        <div class="plot-charts-item-caption">Number of 100 line classes vs time</div>
+        <div class="plot-charts-item-graph plot1"></div>
+      </div>
+      <div class="plot-charts-item">
+        <div class="plot-charts-item-caption">Number of 5 line methods vs time</div>
+        <div class="plot-charts-item-graph plot2"></div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="plot-charts-item">
+        <div class="plot-charts-item-caption">Number of methods calls with 4 params vs time</div>
+        <div class="plot-charts-item-graph plot3"></div>
+      </div>
+      <div class="plot-charts-item">
+        <div class="plot-charts-item-caption">Number of controllers with 1 instance variable vs time</div>
+        <div class="plot-charts-item-graph plot4"></div>
+      </div>
+      <div class="clearfix"></div>
+    </section>
+    <section class="details js-details js-tab-item">
+      <h2>Methods with 5+ lines</h2>
+<table class="details-stats">
+  <thead>
+    <tr>
+<th class="" title="">Class name</th>
+<th class="" title="">Method name</th>
+<th class="" title="">Size</th>
+<th class="" title="">Path</th>
+</tr>
+
+  </thead>
+  <tbody>
+    <tr>
+<td class="" title="">TicTacToe::Players::FastAiPlayer</td>
+<td class="" title="">select_move</td>
+<td class="" title="">10</td>
+<td class="" title="">./lib/tic_tac_toe/players/fast_ai_player.rb</td>
+</tr>
+<tr>
+<td class="" title="">TicTacToe::Players::FastAiPlayer</td>
+<td class="" title="">calculate_best_score</td>
+<td class="" title="">8</td>
+<td class="" title="">./lib/tic_tac_toe/players/fast_ai_player.rb</td>
+</tr>
+<tr>
+<td class="" title="">GUI::Board</td>
+<td class="" title="">build_board</td>
+<td class="" title="">7</td>
+<td class="" title="">./lib/gui/board.rb</td>
+</tr>
+<tr>
+<td class="" title="">MyShoes</td>
+<td class="" title="">main_menu</td>
+<td class="" title="">6</td>
+<td class="" title="">./bin/shoesttt.rb</td>
+</tr>
+
+  </tbody>
+</table>
+<div class="hint">NOTE: Red methods are misindented. Continue your way to perfect code by fixing them.</div>
+    </section>
+    <section class="charts-percentage js-charts-percentage js-tab-item">
+    </section>
+    <section class="progress js-progress js-tab-item">
+      <div class="plot-charts-item">
+        <div class="plot-charts-item-caption">Overall progress</div>
+        <div class="plot-charts-item-graph plot"></div>
+        <div class="clearfix"></div>
+      </div>
+    </section>
+    <footer class="main-footer">
+      Scanned with love by <a href="https://github.com/makaroni4/sandi_meter">sandi_meter</a> gem.
+      Please, <a href="https://github.com/makaroni4/sandi_meter/issues/new">leave an issue</a> or
+      <a href="mailto:makaroni4@gmail.com">email</a> some feedback!
+    </footer>
+  </div>
+</body>
+</html>
