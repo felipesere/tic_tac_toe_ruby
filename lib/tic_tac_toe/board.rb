@@ -20,7 +20,7 @@ module TicTacToe
     end
 
     def perform_move(name, move)
-      raise InvalidMoveError < StandardError unless possible_moves.include? move
+      raise InvalidMoveError < StandardError unless valid_move? move
       new_board = elements.dup
       index = move-1
       new_board[index] = name.to_sym
@@ -30,6 +30,10 @@ module TicTacToe
     def slice(board)
       board.each_slice(SIZE).to_a
     end
+    
+   def valid_move?(move)
+     possible_moves.include? move
+   end
 
     def marked?(row, column)
       !@places[row][column].nil?
@@ -37,6 +41,18 @@ module TicTacToe
 
     def is_finished?
       has_winner? || has_draw?
+    end
+
+    def value
+      @value ||= calculate_value
+    end
+
+    def calculate_value
+      if has_draw?
+        0
+      else
+        10.0 / possible_moves.size
+      end
     end
 
     def has_draw?

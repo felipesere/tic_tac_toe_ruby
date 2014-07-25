@@ -2,16 +2,27 @@ module GUI
   class EndPane
     attr_reader :app
     attr_reader :final_board
+    attr_reader :finish_block
+
+    BUTTONS = { 
+      'Play again' => :replay,
+      'Main menu' => :menu }
+
     def initialize(app, final_board = nil, &finish_block)
       @app = app
       @final_board = final_board
+      @finish_block = finish_block
+      draw
+    end
+
+    def draw
       app.stack :margin =>  10 do
-        place_message
-        place_buttons(&finish_block)
+        draw_message
+        draw_buttons
       end
     end
 
-    def place_message
+    def draw_message
       app.para message, :size => 20
     end
 
@@ -23,15 +34,16 @@ module GUI
       end
     end
 
-    def place_buttons(&finish_block)
+    def draw_buttons
       app.flow do
-        { 
-          'Play again' => :replay,
-          'Main menu' => :menu 
-        }.each do |button, value|
-          app.button button do
-            finish_block.call value
-          end
+        add_buttons
+      end
+    end
+
+    def add_buttons
+      BUTTONS.each do |button, value|
+        app.button button do
+          finish_block.call value
         end
       end
     end

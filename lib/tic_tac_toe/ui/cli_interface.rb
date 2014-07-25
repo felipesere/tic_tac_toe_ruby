@@ -1,17 +1,16 @@
 require 'colorize'
 require 'tic_tac_toe/ui/io'
 require 'tic_tac_toe/ui/cell'
-require 'tic_tac_toe/ui/color_cell'
 
 module TicTacToe
   module UI
     class CliInterface
+      attr_reader :player_combinations
       def initialize(params)
-        @colors = params[:colors] || false
         @clear = params[:clear] || false 
         @io = params[:io] || IO.new
         @player_combinations = params[:player_combinations] || []
-        @cells = @colors ? ColorCell : Cell
+        @painter = params[:painter] || Cell
       end
 
       def play_on(game)
@@ -22,8 +21,8 @@ module TicTacToe
         result(game.current_board)
       end
 
-      def print_options(options)
-        options.each_with_index do |option, i|
+      def print_options
+        player_combinations.each_with_index do |option, i|
           @io.write "#{i} #{option_line(option)}"
         end
       end
@@ -34,11 +33,14 @@ module TicTacToe
 
       def get_chosen_players
         clear_screen
-        options = @player_combinations
-        print_options(options)
+        print_options
         choice = @io.read
-        if is_number(choice) and range(options).include? choice.to_i
-          options[choice.to_i]
+        select(choice)
+      end
+      
+      def select(choice)
+        if is_number(choice) and range.include? choice.to_i
+          player_combinations[choice.to_i]
         else
           get_chosen_players
         end
@@ -52,8 +54,8 @@ module TicTacToe
         end
       end
 
-      def range(options)
-        (0..options.size-1).to_a
+      def range
+        (0..player_combinations.size-1).to_a
       end
 
       def clear_screen
@@ -73,12 +75,16 @@ module TicTacToe
       end
 
       def render_element(cell, index)
-        painter = cell.nil? ? @cells.new(index) : @cells.new(cell)
+        painter = cell.nil? ? @painter.new(index) : @painter.new(cell)
         painter.paint
       end
 
       def result(board)
         render(board)
+        render_message(board)
+      end
+
+      def render_message(board)
         if board.has_winner?
           message_winner(board.winner)
         else

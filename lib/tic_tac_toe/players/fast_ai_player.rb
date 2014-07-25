@@ -36,7 +36,7 @@ module TicTacToe
       end
 
       def alpha_beta(board, alpha, beta, players)
-        if is_terminal_board(board)
+        if board.is_finished?
           value_of_board(board, players.first)
         else
           best_score = -Float::INFINITY 
@@ -51,10 +51,6 @@ module TicTacToe
         end
       end
 
-     def is_terminal_board(board)
-        board.has_winner? || board.has_draw?
-      end
-      
       def value_of_board(board, player)
         if board.has_draw?
           return 0

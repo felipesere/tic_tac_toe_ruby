@@ -3,7 +3,6 @@ require 'tic_tac_toe/board'
 module TicTacToe
   module Players
     class AiPlayer
-
       attr_reader :name
 
       def self.create(name)
@@ -16,6 +15,7 @@ module TicTacToe
 
       def initialize(name)
         @name = name
+        @cache = {}
       end
 
       def set_opponent(opponent)
@@ -35,9 +35,8 @@ module TicTacToe
         end
       end
 
-      def cache(board, &block)
-        key = board.to_s 
-        @cache ||= {}
+      def cache(key, &block)
+        key = key.to_s
         move ||= @cache[key]
         move ||= block.call
         @cache[key]=move
@@ -62,14 +61,20 @@ module TicTacToe
 
       def value_of_move(board, move)
         new_board = board.perform_move(@name, move)
-        if new_board.has_draw?
-          0
-        elsif new_board.has_winner?
-          10.0 / new_board.possible_moves.size
+        value_of_board(new_board)
+      end
+
+      def value_of_board(board)
+        if board.is_finished?
+          board.value
         else
-          opponent_move = @opponent.select_move(new_board)
-          -@opponent.value_of_move(new_board, opponent_move)
+          opponents_value(board)
         end
+      end
+
+      def opponents_value(board)
+        opponent_move = @opponent.select_move(board)
+        -@opponent.value_of_move(board, opponent_move)
       end
     end
   end

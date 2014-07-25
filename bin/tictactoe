@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'tic_tac_toe/ui/cli_interface'
 require 'tic_tac_toe/ui/io'
+require 'tic_tac_toe/ui/color_cell'
 require 'tic_tac_toe/game'
 require 'tic_tac_toe/players/player_factory'
 require 'tic_tac_toe/players/player_types'
@@ -11,8 +12,9 @@ require 'tic_tac_toe/players/player_types'
 module TicTacToe
   io = UI::IO.new(input: $stdin, output: $stdout)
   factory = Players::PlayerFactory.new(io: io)
+  color = UI::ColorCell
   
-  interface = UI::CliInterface.new(io: io, colors: true, clear: true, player_combinations: Players::PlayerTypes.player_combinations)
+  interface = UI::CliInterface.new(io: io, painter: color, clear: true, player_combinations: Players::PlayerTypes.player_combinations)
   
   players_types = interface.get_chosen_players
 
