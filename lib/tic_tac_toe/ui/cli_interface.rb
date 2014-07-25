@@ -1,5 +1,7 @@
 require 'colorize'
 require 'tic_tac_toe/ui/io'
+require 'tic_tac_toe/ui/cell'
+require 'tic_tac_toe/ui/color_cell'
 
 module TicTacToe
   module UI
@@ -9,6 +11,7 @@ module TicTacToe
         @clear = params[:clear] || false 
         @io = params[:io] || IO.new
         @player_combinations = params[:player_combinations] || []
+        @cells = @colors ? ColorCell : Cell
       end
 
       def play_on(game)
@@ -65,21 +68,13 @@ module TicTacToe
 
       def render_board(board)
         board.elements.collect.each.with_index(1) do |cell, index|
-          print_element(cell, index)
+          render_element(cell, index)
         end.each_slice(3).to_a.collect { |row| row.join}.join("\n")
       end
 
-      def print_element(cell, index)
-        content = !cell.nil? ? render_symbol(cell) : index.to_s
-        "[#{content}]"
-      end
-
-      def render_symbol(cell)
-        content = cell.to_s
-        if @colors
-          return cell == :x ? content.red : content.blue
-        end
-        content
+      def render_element(cell, index)
+        painter = cell.nil? ? @cells.new(index) : @cells.new(cell)
+        painter.paint
       end
 
       def result(board)
