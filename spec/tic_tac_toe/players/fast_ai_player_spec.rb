@@ -33,8 +33,8 @@ describe TicTacToe::Players::FastAiPlayer do
       board = TicTacToe::Board.new [[nil , nil , nil]  ,
                                        [:o  , :o  , nil]  ,
                                        [nil , nil , nil]]
-      result = player.perform_move(board)
-      expect(result.marked?(1, 2)).to be true
+      result = player.select_move(board)
+      expect(result).to eq 6
     end
 
     context 'set up fork where possible' do

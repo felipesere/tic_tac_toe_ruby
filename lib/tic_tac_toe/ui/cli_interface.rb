@@ -71,7 +71,7 @@ module TicTacToe
       def render_board(board)
         board.elements.collect.each.with_index(1) do |cell, index|
           render_element(cell, index)
-        end.each_slice(3).to_a.collect { |row| row.join}.join("\n")
+        end.each_slice(TicTacToe::Board::SIZE).to_a.collect { |row| row.join}.join("\n")
       end
 
       def render_element(cell, index)

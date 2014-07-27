@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'tic_tac_toe/players/player_factory'
 require 'tic_tac_toe/players/human_player'
 require 'tic_tac_toe/players/fast_ai_player'
@@ -17,5 +18,9 @@ describe TicTacToe::Players::PlayerFactory do
       expect(result).to be_a(klass)
       expect(result.name).to eq :x
     end
+  end
+
+  it "creates two players" do
+    expect(factory.players([:human, :human]).size).to eq 2
   end
 end

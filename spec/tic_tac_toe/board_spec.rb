@@ -28,6 +28,10 @@ describe TicTacToe::Board do
       expect(marked_board).not_to be board
     end
 
+    it 'denies invalid moves' do
+      expect { marked_board.perform_move(:x, move) }.to raise_exception(TicTacToe::InvalidMoveError)
+    end
+
     context '#possible_moves' do
       let(:moves_before) { board.possible_moves.size }
 
@@ -87,5 +91,20 @@ describe TicTacToe::Board do
       expect(drawn_board.has_draw?).to eq true
       expect(drawn_board.is_finished?).to eq true
     end
+  end
+  
+  it "gives a value of 0 for a board with a draw" do
+    board = TicTacToe::Board.new [[:x, :o, :x],[:o, :o, :x],[:x, :x, :o]]
+    expect(board.value).to eq 0
+  end
+
+  it "gives a positive value for a winning board" do
+    board = TicTacToe::Board.new [[:x, :x, :x], Array.new(3), Array.new(3)]
+    expect(board.value).to be > 0
+  end
+
+  it "states the correct winner" do
+    board = TicTacToe::Board.new [[:x, :x, :x], Array.new(3), Array.new(3)]
+    expect(board.winner).to be :x
   end
 end

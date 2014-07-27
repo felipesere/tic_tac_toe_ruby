@@ -1,5 +1,3 @@
-require 'tic_tac_toe/board'
-
 module TicTacToe
   module Players
     class HumanPlayer

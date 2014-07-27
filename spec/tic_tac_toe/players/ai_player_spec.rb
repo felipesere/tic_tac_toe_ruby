@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'tic_tac_toe/board'
 require 'tic_tac_toe/players/ai_player'
 
 describe TicTacToe::Players::AiPlayer do
@@ -27,8 +28,8 @@ describe TicTacToe::Players::AiPlayer do
     end
 
     it 'should block if necessary' do
-      result = player.perform_move(direct_defense_board)
-      expect(result.marked?(1, 2)).to be true
+      result = player.select_move(direct_defense_board)
+      expect(result).to be 6
     end
   end
 
